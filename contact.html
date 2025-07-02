@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Mongolian Grill</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Georgia:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <a href="index.html" class="logo">Mongolian Grill</a>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="menu.html" class="nav-link">Menu</a>
+                <a href="contact.html" class="nav-link">Contact Us</a>
+            </nav>
+            <button class="menu-toggle" id="menuToggle">
+                &#9776;
+            </button>
+        </div>
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About Us</a>
+            <a href="menu.html" class="nav-link">Menu</a>
+            <a href="contact.html" class="nav-link">Contact Us</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section-padding">
+            <h1 class="section-heading">Get in Touch</h1>
+            <p class="text-center text-lg mb-8">We'd love to hear from you! Reach out with any questions, feedback, or catering inquiries.</p>
+
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h3>Our Details</h3>
+                    <p><strong>Address:</strong> 123 Main Street, Kirkland, WA 98033</p>
+                    <p><strong>Phone:</strong> <a href="tel:+14255551234">(425) 555-1234</a></p>
+                    <p><strong>Email:</strong> <a href="mailto:info@mongoliangrill.com">info@mongoliangrill.com</a></p>
+                    <p><strong>Hours of Operation:</strong></p>
+                    <ul>
+                        <li>Monday - Saturday: 11:00 AM - 9:00 PM</li>
+                        <li>Sunday: 12:00 PM - 8:00 PM</li>
+                    </ul>
+                </div>
+
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form action="#" method="POST">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject:</label>
+                            <input type="text" id="subject" name="subject">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Send Message">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Mongolian Grill. All rights reserved.</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
