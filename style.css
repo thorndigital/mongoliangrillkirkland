@@ -1,0 +1,359 @@
+/* style.css */
+
+/* Define main colors */
+:root {
+  --primary-red: #7d1918;
+  --cream: #fcf3d7;
+  --dark-red: #5a1211;
+  --light-cream: #fffaf0;
+  --text-dark: #333333;
+}
+
+/* Base styles */
+body {
+  font-family: 'Inter', sans-serif; /* A clean, modern font */
+  background-color: var(--cream);
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Georgia', serif; /* A classic, local restaurant feel */
+  color: var(--primary-red);
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--primary-red);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--dark-red);
+}
+
+/* Header */
+.header {
+  background-color: var(--primary-red);
+  color: var(--cream);
+  padding: 1rem 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem; /* Consistent padding */
+}
+
+.logo {
+  font-family: 'Georgia', serif; /* Consistent with headers */
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--cream);
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-link {
+  color: var(--cream);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--light-cream);
+}
+
+.menu-toggle {
+  display: none; /* Hidden on desktop */
+  background: none;
+  border: none;
+  color: var(--cream);
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.mobile-nav {
+  display: none; /* Hidden by default, shown by JS on mobile */
+  flex-direction: column;
+  background-color: var(--dark-red);
+  padding: 1rem 0;
+  position: absolute;
+  top: 100%; /* Position below the header */
+  left: 0;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+.mobile-nav .nav-link {
+  padding: 0.75rem 1.5rem;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgba(252, 243, 215, 0.1); /* Subtle separator */
+}
+
+.mobile-nav .nav-link:last-child {
+  border-bottom: none;
+}
+
+/* Hero Section */
+.hero-section {
+  background-image: url('https://placehold.co/1200x600/7d1918/fcf3d7?text=Mongolian+Grill+Welcome'); /* Placeholder image */
+  background-size: cover;
+  background-position: center;
+  color: var(--cream);
+  text-align: center;
+  padding: 6rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 500px; /* Ensure it's tall enough */
+}
+
+.hero-section h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: var(--cream); /* Override for hero title */
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  max-width: 800px;
+  margin-bottom: 2rem;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.btn-primary {
+  background-color: var(--primary-red);
+  color: var(--cream);
+  padding: 0.8rem 2rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block; /* Allows padding and margin */
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: var(--dark-red);
+  transform: translateY(-2px);
+}
+
+/* Section Styling */
+.section-padding {
+  padding: 4rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-heading {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+/* About Page Specific */
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+}
+
+.about-text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.about-image {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
+
+.about-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Menu Page Specific */
+.menu-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.menu-step-card {
+  background-color: var(--light-cream);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.menu-step-card h3 {
+  color: var(--dark-red);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.menu-step-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-step-card li {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
+/* Contact Us Page Specific */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+}
+
+.contact-info {
+  background-color: var(--light-cream);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.contact-info h3 {
+  color: var(--dark-red);
+  margin-bottom: 1.5rem;
+}
+
+.contact-info p {
+  margin-bottom: 1rem;
+}
+
+.contact-form {
+  background-color: var(--light-cream);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-group input[type="submit"] {
+  background-color: var(--primary-red);
+  color: var(--cream);
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 600;
+}
+
+.form-group input[type="submit"]:hover {
+  background-color: var(--dark-red);
+  transform: translateY(-2px);
+}
+
+
+/* Footer */
+.footer {
+  background-color: var(--dark-red);
+  color: var(--cream);
+  text-align: center;
+  padding: 2rem 1.5rem;
+  margin-top: 3rem;
+}
+
+.footer p {
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none; /* Hide desktop nav links */
+  }
+
+  .menu-toggle {
+    display: block; /* Show mobile toggle button */
+  }
+
+  .header-container {
+    flex-wrap: wrap; /* Allow wrapping for logo and toggle */
+  }
+
+  .mobile-nav.active {
+    display: flex; /* Show mobile dropdown when active */
+  }
+
+  .hero-section {
+    padding: 4rem 1rem;
+    min-height: 400px;
+  }
+
+  .hero-section h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-section p {
+    font-size: 1rem;
+  }
+
+  .section-padding {
+    padding: 2rem 1rem;
+  }
+
+  .section-heading {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .about-content {
+    flex-direction: column; /* Stack content on mobile */
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+  }
+}
