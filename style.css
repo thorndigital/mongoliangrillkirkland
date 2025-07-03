@@ -1,4 +1,4 @@
- /* style.css */
+/* style.css */
 
 /* Define main colors */
 :root {
@@ -135,7 +135,7 @@ a:hover {
 
 /* Hero Section */
 .hero-section {
-  background-image: url('assets/herobg.jpg'); /* Placeholder image */
+  background-image: url('assets/herobg.jpg'); /* Updated background image path */
   background-size: cover;
   background-position: center;
   color: var(--cream);
@@ -150,18 +150,41 @@ a:hover {
   overflow: hidden; /* For particles if added */
 }
 
+/* New style for the text island on the hero section */
+.hero-text-island {
+  background-color: rgba(0, 0, 0, 0.4); /* Low-opacity black */
+  padding: 2rem 3rem;
+  border-radius: 10px;
+  max-width: 800px; /* Limit width */
+  margin: 0 auto; /* Center the island */
+  position: relative;
+  z-index: 1; /* Ensure it's above the background image */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3); /* Subtle shadow */
+}
+
+.hero-text-island h1 {
+  color: var(--cream); /* Ensure text on island is readable */
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* Stronger shadow for text */
+}
+
+.hero-text-island p {
+  color: var(--light-cream); /* Ensure text on island is readable */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Stronger shadow for text */
+}
+
+
 .hero-section h1 {
   font-size: 3.5rem;
   margin-bottom: 1rem;
-  color: var(--cream); /* Override for hero title */
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  /* color: var(--cream); -- Removed as it's now handled by .hero-text-island h1 */
+  /* text-shadow: 2px 2px 4px rgba(0,0,0,0.5); -- Removed as it's now handled by .hero-text-island h1 */
 }
 
 .hero-section p {
   font-size: 1.2rem;
   max-width: 800px;
   margin-bottom: 2rem;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  /* text-shadow: 1px 1px 3px rgba(0,0,0,0.5); -- Removed as it's now handled by .hero-text-island p */
 }
 
 .btn-primary {
@@ -526,4 +549,3 @@ a:hover {
     grid-template-columns: 1fr; /* Single column on mobile */
   }
 }
-
