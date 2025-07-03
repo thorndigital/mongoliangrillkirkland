@@ -152,7 +152,7 @@ a:hover {
 
 /* New style for the text island on the hero section */
 .hero-text-island {
-  background-color: rgba(0, 0, 0, 0.7); /* Low-opacity black */
+  background-color: rgba(0, 0, 0, 0.7); /* Increased opacity to 0.7 */
   padding: 2rem 3rem;
   border-radius: 10px;
   max-width: 800px; /* Limit width */
@@ -418,7 +418,8 @@ a:hover {
 /* Generic animated element base */
 .animated-element {
   opacity: 0;
-  transform: translateY(20px);
+  /* Reduced translateY for more subtle fade-in-up */
+  transform: translateY(10px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
 
@@ -431,7 +432,7 @@ a:hover {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px); /* Reduced from 20px */
   }
   to {
     opacity: 1;
@@ -442,7 +443,7 @@ a:hover {
 @keyframes slideInLeft {
   from {
     opacity: 0;
-    transform: translateX(-50px);
+    transform: translateX(-20px); /* Reduced from -50px */
   }
   to {
     opacity: 1;
@@ -453,7 +454,7 @@ a:hover {
 @keyframes slideInRight {
   from {
     opacity: 0;
-    transform: translateX(50px);
+    transform: translateX(20px); /* Reduced from 50px */
   }
   to {
     opacity: 1;
@@ -481,15 +482,15 @@ a:hover {
 
 /* Apply animations */
 .animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
+  animation: fadeInUp 1.2s ease-out forwards; /* Increased duration */
 }
 
 .animate-slide-in-left {
-  animation: slideInLeft 0.8s ease-out forwards;
+  animation: slideInLeft 1.2s ease-out forwards; /* Increased duration */
 }
 
 .animate-slide-in-right {
-  animation: slideInRight 0.8s ease-out forwards;
+  animation: slideInRight 1.2s ease-out forwards; /* Increased duration */
 }
 
 .animate-pulse-subtle {
