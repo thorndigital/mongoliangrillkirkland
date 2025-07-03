@@ -1,4 +1,4 @@
-/* style.css */
+ /* style.css */
 
 /* Define main colors */
 :root {
@@ -135,7 +135,7 @@ a:hover {
 
 /* Hero Section */
 .hero-section {
-  background-image: url('https://placehold.co/1200x600/7d1918/fcf3d7?text=Mongolian+Grill+Welcome'); /* Placeholder image */
+  background-image: url('assets/herobg.jpg'); /* Placeholder image */
   background-size: cover;
   background-position: center;
   color: var(--cream);
