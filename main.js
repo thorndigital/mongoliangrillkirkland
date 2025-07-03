@@ -21,6 +21,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const animateOnScroll = () => {
     const elements = document.querySelectorAll('.animated-element');
     elements.forEach(element => {
+      // If the element is already visible, do not re-animate
+      if (element.classList.contains('visible')) {
+        return;
+      }
+
       // Get the position of the element
       const elementRect = element.getBoundingClientRect();
       const elementTop = elementRect.top;
@@ -32,30 +37,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Check if the element is in the viewport
       if (elementTop < triggerPoint) {
-        if (!element.classList.contains('visible')) {
-          element.classList.add('visible');
-          // Apply specific animation if data-animation attribute is present
-          const animationType = element.getAttribute('data-animation');
-          const animationDelay = element.getAttribute('data-delay');
+        element.classList.add('visible');
+        // Apply specific animation if data-animation attribute is present
+        const animationType = element.getAttribute('data-animation');
+        const animationDelay = element.getAttribute('data-delay');
 
-          if (animationType) {
-            element.style.animationName = animationType;
-            element.style.animationDuration = '0.8s'; // Default duration
-            element.style.animationFillMode = 'forwards';
-            element.style.animationTimingFunction = 'ease-out';
-            if (animationDelay) {
-              element.style.animationDelay = animationDelay;
-            }
+        if (animationType) {
+          element.style.animationName = animationType;
+          element.style.animationDuration = '0.8s'; // Default duration
+          element.style.animationFillMode = 'forwards'; // Keep the final state of the animation
+          element.style.animationTimingFunction = 'ease-out';
+          if (animationDelay) {
+            element.style.animationDelay = animationDelay;
           }
         }
-      } else {
-        // Optional: Remove 'visible' class if element scrolls out of view upwards
-        // This allows the animation to replay if scrolled back down
-        // if (element.classList.contains('visible')) {
-        //   element.classList.remove('visible');
-        //   element.style.animationName = 'none'; // Reset animation
-        // }
       }
+      // Removed the else block that removes 'visible' class
+      // This prevents animations from replaying when scrolling up and down
     });
   };
 
@@ -88,5 +86,3 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   highlightActiveNavLink(); // Call on DOMContentLoaded
 });
-
-
