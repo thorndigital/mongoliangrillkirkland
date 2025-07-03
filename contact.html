@@ -31,11 +31,12 @@
 
     <main>
         <section class="section-padding">
-            <h1 class="section-heading">Get in Touch</h1>
-            <p class="text-center text-lg mb-8">We'd love to hear from you! Reach out with any questions, feedback, or catering inquiries.</p>
+            <h1 class="section-heading animated-element" data-animation="fadeInUp">Get in Touch</h1>
+            <p class="text-center text-lg mb-8 animated-element" data-animation="fadeInUp" data-delay="0.2s">We'd love to hear from you! Reach out with any questions, feedback, or catering inquiries.</p>
 
             <div class="contact-grid">
-                <div class="contact-info">
+                <div class="contact-info animated-element" data-animation="slideInLeft" data-delay="0.4s">
+                    <img src="https://placehold.co/100x100/7d1918/fcf3d7?text=Info" alt="Contact Information Icon" class="contact-info-icon">
                     <h3>Our Details</h3>
                     <p><strong>Address:</strong> 123 Main Street, Kirkland, WA 98033</p>
                     <p><strong>Phone:</strong> <a href="tel:+14255551234">(425) 555-1234</a></p>
@@ -47,7 +48,7 @@
                     </ul>
                 </div>
 
-                <div class="contact-form">
+                <div class="contact-form animated-element" data-animation="slideInRight" data-delay="0.6s">
                     <h3>Send Us a Message</h3>
                     <form action="#" method="POST">
                         <div class="form-group">
@@ -73,6 +74,28 @@
                 </div>
             </div>
         </section>
+
+        <section class="image-gallery-section section-padding">
+            <h2 class="section-heading animated-element" data-animation="fadeInUp">A Glimpse Inside</h2>
+            <div class="image-gallery-grid">
+                <div class="gallery-item animated-element" data-animation="fadeInUp" data-delay="0.2s">
+                    <img src="https://placehold.co/600x400/7d1918/fcf3d7?text=Mongolian+Grill+Interior+1" alt="Mongolian Grill Interior 1">
+                    <div class="caption">Warm and inviting dining area.</div>
+                </div>
+                <div class="gallery-item animated-element" data-animation="fadeInUp" data-delay="0.4s">
+                    <img src="https://placehold.co/600x400/7d1918/fcf3d7?text=Mongolian+Grill+Food+1" alt="Mongolian Grill Food 1">
+                    <div class="caption">Freshly prepared stir-fry bowl.</div>
+                </div>
+                <div class="gallery-item animated-element" data-animation="fadeInUp" data-delay="0.6s">
+                    <img src="https://placehold.co/600x400/7d1918/fcf3d7?text=Mongolian+Grill+Ingredients" alt="Mongolian Grill Ingredients">
+                    <div class="caption">Our wide selection of fresh ingredients.</div>
+                </div>
+                <div class="gallery-item animated-element" data-animation="fadeInUp" data-delay="0.8s">
+                    <img src="https://placehold.co/600x400/7d1918/fcf3d7?text=Mongolian+Grill+Exterior" alt="Mongolian Grill Exterior">
+                    <div class="caption">The welcoming exterior of our restaurant.</div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
@@ -82,3 +105,4 @@
     <script src="main.js"></script>
 </body>
 </html>
+
