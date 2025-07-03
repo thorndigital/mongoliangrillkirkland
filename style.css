@@ -42,6 +42,9 @@ a:hover {
   color: var(--cream);
   padding: 1rem 0;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  position: sticky; /* Make header sticky */
+  top: 0;
+  z-index: 20; /* Ensure it's above other content */
 }
 
 .header-container {
@@ -68,7 +71,25 @@ a:hover {
 .nav-link {
   color: var(--cream);
   font-weight: 500;
+  position: relative; /* For underline effect */
   transition: color 0.3s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: var(--light-cream);
+  left: 50%;
+  bottom: -5px;
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
 }
 
 .nav-link:hover {
@@ -97,6 +118,10 @@ a:hover {
   z-index: 10;
 }
 
+.mobile-nav.active {
+  display: flex; /* Show mobile dropdown when active */
+}
+
 .mobile-nav .nav-link {
   padding: 0.75rem 1.5rem;
   width: 100%;
@@ -121,6 +146,8 @@ a:hover {
   justify-content: center;
   align-items: center;
   min-height: 500px; /* Ensure it's tall enough */
+  position: relative;
+  overflow: hidden; /* For particles if added */
 }
 
 .hero-section h1 {
@@ -145,11 +172,13 @@ a:hover {
   transition: background-color 0.3s ease, transform 0.2s ease;
   display: inline-block; /* Allows padding and margin */
   font-weight: 600;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .btn-primary:hover {
   background-color: var(--dark-red);
   transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
 /* Section Styling */
@@ -204,22 +233,18 @@ a:hover {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.menu-step-card h3 {
-  color: var(--dark-red);
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+.menu-step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
-.menu-step-card ul {
-  list-style: none;
-  padding: 0;
-}
-
-.menu-step-card li {
-  margin-bottom: 0.5rem;
-  font-size: 1.1rem;
+.menu-step-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
 }
 
 /* Contact Us Page Specific */
@@ -234,6 +259,22 @@ a:hover {
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center; /* Center content including icon */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-info:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.contact-info-icon { /* Style for the new icon in contact info */
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem; /* Center and add space below */
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .contact-info h3 {
@@ -250,6 +291,12 @@ a:hover {
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
 }
 
 .form-group {
@@ -295,6 +342,40 @@ a:hover {
   transform: translateY(-2px);
 }
 
+/* Image Gallery Section */
+.image-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.gallery-item {
+  background-color: var(--light-cream);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  overflow: hidden; /* Ensures image corners are rounded */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 200px; /* Fixed height for consistency */
+  object-fit: cover; /* Ensures images cover the area without distortion */
+  display: block;
+}
+
+.gallery-item .caption {
+  padding: 1rem;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  text-align: center;
+}
 
 /* Footer */
 .footer {
@@ -309,6 +390,94 @@ a:hover {
   margin: 0;
 }
 
+/* --- New Animations --- */
+
+/* Generic animated element base */
+.animated-element {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animated-element.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Specific animation keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Apply animations */
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite alternate;
+}
+
+.animate-float-subtle {
+  animation: float-subtle 3s ease-in-out infinite alternate;
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .nav-links {
@@ -321,10 +490,6 @@ a:hover {
 
   .header-container {
     flex-wrap: wrap; /* Allow wrapping for logo and toggle */
-  }
-
-  .mobile-nav.active {
-    display: flex; /* Show mobile dropdown when active */
   }
 
   .hero-section {
@@ -354,6 +519,10 @@ a:hover {
   }
 
   .contact-grid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+  }
+
+  .image-gallery-grid {
     grid-template-columns: 1fr; /* Single column on mobile */
   }
 }
