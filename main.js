@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (animationType) {
           element.style.animationName = animationType;
-          element.style.animationDuration = '0.8s'; // Default duration
+          element.style.animationDuration = '1.2s'; // Increased duration for smoother animation
           element.style.animationFillMode = 'forwards'; // Keep the final state of the animation
           element.style.animationTimingFunction = 'ease-out';
           if (animationDelay) {
@@ -86,3 +86,4 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   highlightActiveNavLink(); // Call on DOMContentLoaded
 });
+
