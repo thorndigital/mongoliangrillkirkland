@@ -4,36 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Story - Mongolian Grill</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-red: #8B0000;
-            --secondary-gold: #FFD700;
-            --cream-bg: #F5F5DC;
-            --dark-charcoal: #2c2c2c;
+            --primary-red: #800000;
+            --secondary-gold: #D4AF37;
+            --cream-bg: #F9F6F0;
+            --dark-charcoal: #333333;
         }
-        body { font-family: 'Roboto', sans-serif; background-color: var(--cream-bg); color: var(--dark-charcoal); margin: 0; overflow-x: hidden; }
-        .header { background-color: var(--primary-red); padding: 1rem 2rem; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--secondary-gold); font-weight: 800; text-decoration: none; }
-        .nav-links { display: flex; gap: 2.5rem; }
-        .nav-link { color: white; text-decoration: none; font-weight: 400; position: relative; transition: color 0.3s ease; }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; background: var(--secondary-gold); left: 0; bottom: -5px; transition: width 0.4s ease; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--cream-bg); color: var(--dark-charcoal); margin: 0; }
+        .header { background-color: white; padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary-red); text-decoration: none; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-link { color: var(--dark-charcoal); text-decoration: none; font-weight: 500; position: relative; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; background: var(--secondary-gold); left: 50%; bottom: -5px; transform: translateX(-50%); transition: width 0.4s ease; }
         .nav-link:hover, .nav-link.active { color: var(--secondary-gold); }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
         .menu-toggle { display: none; }
-        .page-hero { padding: 150px 2rem 5rem; text-align: center; }
-        .page-heading { font-family: 'Playfair Display', serif; font-size: 4.5rem; color: var(--primary-red); margin: 0; line-height: 1; }
-        .section-padding { padding: 5rem 2rem; }
-        .about-layout { display: grid; grid-template-columns: 1fr 1.2fr; max-width: 1200px; margin: 0 auto; gap: 5rem; align-items: center; }
-        .about-image { border-radius: 15px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+        .mobile-nav { display: none; }
+        .about-section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center; }
+        .about-image { border-radius: 8px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
         .about-image img { width: 100%; display: block; }
-        .about-text { font-size: 1.1rem; line-height: 1.9; }
-        .about-text h3 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--dark-charcoal); margin-top: 0; }
-        .about-text p { margin-bottom: 1.5rem; }
-        .footer { background-color: var(--dark-charcoal); color: var(--cream-bg); text-align: center; padding: 3rem 2rem; margin-top: 5rem; }
-        @media (max-width: 900px) { .about-layout { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { .nav-links { display: none; } .menu-toggle { display: block; font-size: 2rem; color: white; background: none; border: none; cursor: pointer; } .page-heading { font-size: 3rem; } }
+        .about-text h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary-red); margin-top: 0; }
+        .about-text p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem; }
+        .footer { background-color: var(--dark-charcoal); color: var(--cream-bg); text-align: center; padding: 2.5rem; }
+        @media (max-width: 900px) { .about-section { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .nav-links { display: none; } .menu-toggle { display: block; font-size: 1.8rem; color: var(--dark-charcoal); background: none; border: none; cursor: pointer; } .mobile-nav.active { display: flex; flex-direction: column; background-color: white; position: absolute; top: 100%; left: 0; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); } .mobile-nav .nav-link { padding: 1rem; border-top: 1px solid #eee; } .about-text h1 { font-size: 2.5rem; }}
     </style>
 </head>
 <body>
@@ -48,41 +45,27 @@
             </nav>
             <button class="menu-toggle" id="menuToggle">&#9776;</button>
         </div>
+        <nav class="mobile-nav" id="mobileNav"><a href="index.html" class="nav-link">Home</a><a href="about.html" class="nav-link active">About Us</a><a href="menu.html" class="nav-link">Menu</a><a href="contact.html" class="nav-link">Contact Us</a></nav>
     </header>
 
     <main>
-        <section class="page-hero">
-            <h1 class="page-heading">Our Passion for Flavor</h1>
-        </section>
-
-        <section class="section-padding">
-            <div class="about-layout">
-                <div class="about-image">
-                    <img src="https://placehold.co/600x800/8B0000/F5F5DC?text=Our+Story" alt="Mongolian Grill Story">
-                </div>
-                <div class="about-text">
-                    <h3>Where Every Meal is a Shared Story.</h3>
-                    <p>Founded in 2005, Mongolian Grill was born from a simple yet powerful vision: to transform dining into an act of creation. We wanted to build more than a restaurant; we aimed to create a vibrant stage where flavor, freshness, and individual expression take center stage.</p>
-                    <p>Our journey was inspired by the rich culinary traditions of Mongolia, where the community gathers around the grill to share stories and create meals together. We've brought that same spirit here, offering an interactive experience where you are the chef. From selecting the perfect combination of crisp vegetables and lean proteins to choosing a signature sauce that speaks to your palate, every bowl tells a unique story—your story.</p>
-                    <p>We are a gathering place for friends, a cornerstone for family dinners, and a testament to the idea that the best meals are the ones we create together. Thank you for being a part of our continuing story.</p>
-                </div>
+        <section class="about-section">
+            <div class="about-image"><img src="https://placehold.co/600x700/800000/F9F6F0?text=Our+Grill" alt="The Grill"></div>
+            <div class="about-text">
+                <h1>Our Story</h1>
+                <p>Founded in 2005, Mongolian Grill began with a simple idea: that a meal could be more than just food—it could be an experience. We wanted to create a place where every guest could become a chef, crafting a meal that was a perfect reflection of their own taste.</p>
+                <p>Inspired by the communal tradition of Mongolian barbecue, we've built our restaurant around an open grill and a vibrant selection of the freshest ingredients available. From sourcing high-quality meats and vegetables to mixing our own signature sauces, every detail is chosen with care.</p>
+                <p>We are a gathering place for friends and family, a spot for a quick and healthy lunch, and a destination for a delicious dinner. Thank you for being a part of our story!</p>
             </div>
         </section>
     </main>
-    
-    <footer class="footer"><p>&copy; 2025 Mongolian Grill. All rights reserved.</p></footer>
 
+    <footer class="footer"><p>&copy; 2025 Mongolian Grill. All rights reserved.</p></footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            gsap.registerPlugin(ScrollTrigger);
-            gsap.from(".page-heading", { duration: 1.2, y: 80, opacity: 0, ease: "power3.out" });
-            const aboutTl = gsap.timeline({ scrollTrigger: { trigger: ".about-layout", start: "top 70%" } });
-            aboutTl.from(".about-image", { x: -100, opacity: 0, duration: 1, ease: 'power3.out' })
-                   .from(".about-text h3", { y: 50, opacity: 0, duration: 0.8 }, "-=0.7")
-                   .from(".about-text p", { y: 30, opacity: 0, stagger: 0.2, duration: 0.6 }, "-=0.5");
-        });
+        document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('mobileNav').classList.toggle('active'));
+        gsap.from('.about-image', { duration: 1, x: -50, opacity: 0, ease: 'power3.out' });
+        gsap.from('.about-text > *', { duration: 1, x: 50, opacity: 0, stagger: 0.2, ease: 'power3.out' });
     </script>
 </body>
 </html>
