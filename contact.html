@@ -4,70 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us - Mongolian Grill</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-red: #8B0000;
-            --secondary-gold: #FFD700;
-            --cream-bg: #F5F5DC;
-            --dark-charcoal: #2c2c2c;
+            --primary-red: #800000;
+            --secondary-gold: #D4AF37;
+            --cream-bg: #F9F6F0;
+            --dark-charcoal: #333333;
         }
-        body { font-family: 'Roboto', sans-serif; margin: 0; overflow-x: hidden; }
-        .contact-container { display: flex; min-height: 100vh; }
-        .contact-info-panel { flex: 1; background-color: var(--dark-charcoal); color: white; display: flex; flex-direction: column; justify-content: space-between; padding: 4rem; }
-        .contact-info-content h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: white; }
-        .contact-info-content p { font-size: 1.1rem; line-height: 1.8; color: var(--cream-bg); max-width: 400px; }
-        .contact-details p { margin: 1rem 0; }
-        .contact-details a { color: var(--secondary-gold); text-decoration: none; }
-        .contact-form-panel { flex: 1.2; background-color: var(--cream-bg); padding: 4rem; display: flex; align-items: center; }
-        .form-wrapper { width: 100%; max-width: 600px; }
-        .form-wrapper h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary-red); margin-top: 0; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--cream-bg); color: var(--dark-charcoal); margin: 0; }
+        .header { background-color: white; padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary-red); text-decoration: none; }
+        .nav-links, .mobile-nav { display: flex; gap: 2rem; } .nav-link { color: var(--dark-charcoal); text-decoration: none; font-weight: 500; position: relative; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; background: var(--secondary-gold); left: 50%; bottom: -5px; transform: translateX(-50%); transition: width 0.4s ease; }
+        .nav-link:hover, .nav-link.active { color: var(--secondary-gold); }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .menu-toggle { display: none; } .mobile-nav { display: none; }
+        .contact-section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .section-heading { font-family: 'Playfair Display', serif; text-align: center; font-size: 3rem; color: var(--primary-red); margin-bottom: 4rem; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; background: white; padding: 3rem; border-radius: 8px; box-shadow: 0 4px 25px rgba(0,0,0,0.05); }
+        .contact-info h3 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary-red); margin-top: 0; }
+        .contact-info p { line-height: 1.8; } .contact-info a { color: var(--primary-red); }
+        .contact-form h3 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary-red); margin-top: 0; }
         .form-group { margin-bottom: 1.5rem; }
         .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
-        .form-group input, .form-group textarea { width: 100%; padding: 1rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; box-sizing: border-box; transition: all 0.3s; }
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--secondary-gold); box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3); }
-        .submit-btn { background-color: var(--secondary-gold); color: var(--dark-charcoal); padding: 1rem 2.5rem; border-radius: 50px; border: none; cursor: pointer; font-weight: 500; font-size: 1rem; transition: all 0.3s ease; }
-        .submit-btn:hover { background-color: var(--primary-red); color: white; transform: translateY(-3px); }
-        .home-link { position: absolute; top: 2rem; right: 2rem; font-family: 'Playfair Display', serif; color: white; text-decoration: none; font-size: 1.2rem; }
-        @media (max-width: 900px) { .contact-container { flex-direction: column; } .home-link { color: var(--dark-charcoal); } }
+        .form-group input, .form-group textarea { width: 100%; padding: 0.9rem; border: 1px solid #ccc; border-radius: 5px; font-size: 1rem; box-sizing: border-box; transition: all 0.3s; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--secondary-gold); box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3); }
+        .submit-btn { background-color: var(--secondary-gold); color: var(--dark-charcoal); padding: 0.9rem 2.2rem; border-radius: 5px; border: none; cursor: pointer; font-weight: 500; font-size: 1rem; transition: all 0.3s ease; }
+        .submit-btn:hover { background-color: var(--primary-red); color: white; }
+        .footer { background-color: var(--dark-charcoal); color: var(--cream-bg); text-align: center; padding: 2.5rem; }
+        @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 3rem; } }
+        @media (max-width: 768px) { .nav-links { display: none; } .menu-toggle { display: block; font-size: 1.8rem; color: var(--dark-charcoal); background: none; border: none; cursor: pointer; } .mobile-nav.active { display: flex; flex-direction: column; background-color: white; position: absolute; top: 100%; left: 0; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); } .mobile-nav .nav-link { padding: 1rem; border-top: 1px solid #eee; } }
     </style>
 </head>
 <body>
-    <div class="contact-container">
-        <div class="contact-info-panel">
-            <a href="index.html" class="home-link">Home</a>
-            <div class="contact-info-content">
-                <h1>Get in Touch</h1>
-                <p>We'd love to hear from you. Reach out with any questions, feedback, or catering inquiries.</p>
+    <header class="header">
+        <div class="header-container"><a href="index.html" class="logo">Mongolian Grill</a><nav class="nav-links"><a href="index.html" class="nav-link">Home</a><a href="about.html" class="nav-link">About Us</a><a href="menu.html" class="nav-link">Menu</a><a href="contact.html" class="nav-link active">Contact Us</a></nav><button class="menu-toggle" id="menuToggle">&#9776;</button></div>
+        <nav class="mobile-nav" id="mobileNav"><a href="index.html" class="nav-link">Home</a><a href="about.html" class="nav-link">About Us</a><a href="menu.html" class="nav-link">Menu</a><a href="contact.html" class="nav-link active">Contact Us</a></nav>
+    </header>
+    <main>
+        <section class="contact-section">
+            <h1 class="section-heading">Get in Touch</h1>
+            <div class="contact-grid">
+                <div class="contact-info"><h3>Contact Details</h3><p><strong>Address:</strong><br>123 Main Street, Kirkland, WA 98033</p><p><strong>Phone:</strong><br><a href="tel:+14255551234">(425) 555-1234</a></p><p><strong>Email:</strong><br><a href="mailto:info@mongoliangrill.com">info@mongoliangrill.com</a></p><h3>Hours</h3><p>Mon - Sat: 11 AM - 9 PM<br>Sun: 12 PM - 8 PM</p></div>
+                <div class="contact-form"><h3>Send Us a Message</h3><form action="#" method="POST"><div class="form-group"><label for="name">Name:</label><input type="text" id="name" required></div><div class="form-group"><label for="email">Email:</label><input type="email" id="email" required></div><div class="form-group"><label for="message">Message:</label><textarea id="message" rows="6" required></textarea></div><button type="submit" class="submit-btn">Send Message</button></form></div>
             </div>
-            <div class="contact-details">
-                <p><strong>Email:</strong> <a href="mailto:info@mongoliangrill.com">info@mongoliangrill.com</a></p>
-                <p><strong>Phone:</strong> <a href="tel:+14255551234">(425) 555-1234</a></p>
-                <p><strong>Address:</strong> 123 Main Street, Kirkland, WA 98033</p>
-            </div>
-        </div>
-        <div class="contact-form-panel">
-            <div class="form-wrapper">
-                <h2>Send Us a Message</h2>
-                <form action="#" method="POST">
-                    <div class="form-group"><label for="name">Name:</label><input type="text" id="name" required></div>
-                    <div class="form-group"><label for="email">Email:</label><input type="email" id="email" required></div>
-                    <div class="form-group"><label for="subject">Subject:</label><input type="text" id="subject"></div>
-                    <div class="form-group"><label for="message">Message:</label><textarea id="message" rows="5" required></textarea></div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </div>
+        </section>
+    </main>
+    <footer class="footer"><p>&copy; 2025 Mongolian Grill. All rights reserved.</p></footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script>
-        gsap.from(".contact-info-panel", { duration: 1.2, x: "-100%", ease: "power3.out" });
-        gsap.from(".contact-form-panel", { duration: 1.2, x: "100%", ease: "power3.out" });
-        gsap.from(".home-link", { duration: 1, opacity: 0, delay: 1 });
-        const formTl = gsap.timeline({delay: 0.8});
-        formTl.from(".form-wrapper h2", { y: 50, opacity: 0, duration: 0.8 })
-              .from(".form-group", { y: 30, opacity: 0, stagger: 0.15, duration: 0.5 }, "-=0.5")
-              .from(".submit-btn", { scale: 0.8, opacity: 0, duration: 0.6, ease: 'back.out(1.7)' }, "-=0.3");
+        document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('mobileNav').classList.toggle('active'));
+        gsap.from('.section-heading', { duration: 1, y: 30, opacity: 0, ease: 'power3.out' });
+        gsap.from('.contact-grid', { duration: 1, y: 50, opacity: 0, ease: 'power3.out', delay: 0.3 });
     </script>
 </body>
 </html>
