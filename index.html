@@ -3,290 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mongolian Grill - Authentic Flavors, Fresh Ingredients</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Mongolian Grill - An Artisanal Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-red: #8B0000; /* Deeper Crimson Red */
-            --secondary-gold: #FFD700; /* Rich Gold */
-            --cream-bg: #F5F5DC; /* Softer Beige/Cream */
-            --dark-charcoal: #333333; /* Dark Gray for Text */
-            --light-cream: #FFF8E1; /* Lighter Cream for Cards */
+            --primary-red: #8B0000;
+            --secondary-gold: #FFD700;
+            --cream-bg: #F5F5DC;
+            --dark-charcoal: #2c2c2c;
+            --light-cream: #FFF8E1;
             --dark-red: #6e0000;
         }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--cream-bg);
-            color: var(--dark-charcoal);
-            margin: 0;
-            overflow-x: hidden;
-        }
-
-        .header {
-            background-color: var(--primary-red);
-            padding: 1rem 2rem;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--secondary-gold);
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            color: var(--cream-bg);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--secondary-gold);
-            left: 50%;
-            bottom: -5px;
-            transform: translateX(-50%);
-            transition: width 0.4s ease;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: var(--secondary-gold);
-        }
-
-        .nav-link:hover::after, .nav-link.active::after {
-            width: 100%;
-        }
-
-        .menu-toggle {
-            display: none;
-            font-size: 2rem;
-            color: var(--cream-bg);
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .mobile-nav {
-            display: none;
-            flex-direction: column;
-            background-color: var(--dark-red);
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-        }
-
+        *, *::before, *::after { box-sizing: border-box; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--cream-bg); color: var(--dark-charcoal); margin: 0; overflow-x: hidden; }
+        .header { background: rgba(0,0,0,0.2); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 1rem 2rem; position: fixed; width: 100%; top: 0; z-index: 1000; transition: background-color 0.4s ease; }
+        .header.scrolled { background-color: var(--primary-red); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--secondary-gold); font-weight: 800; text-decoration: none; }
+        .nav-links { display: flex; gap: 2.5rem; }
+        .nav-link { color: white; text-decoration: none; font-weight: 400; position: relative; transition: color 0.3s ease; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; background: var(--secondary-gold); left: 0; bottom: -5px; transition: width 0.4s ease; }
+        .nav-link:hover, .nav-link.active { color: var(--secondary-gold); }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+        .menu-toggle { display: none; font-size: 2rem; color: white; background: none; border: none; cursor: pointer; }
+        .mobile-nav { display: none; flex-direction: column; background-color: var(--dark-red); position: absolute; top: 100%; left: 0; width: 100%; }
         .mobile-nav.active { display: flex; }
         .mobile-nav .nav-link { padding: 1rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); }
-
-
-        .hero-section {
-            background: url('assets/herobg.jpg') no-repeat center center/cover;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            color: white;
-        }
-        
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-        }
-
-        .hero-text-island {
-            z-index: 1;
-            max-width: 800px;
-        }
-
-        .hero-text-island h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
-            color: white;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-        }
-
-        .hero-text-island p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        .btn-primary {
-            background-color: var(--secondary-gold);
-            color: var(--dark-charcoal);
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .btn-primary:hover {
-            background-color: #ffd700b3;
-            transform: translateY(-3px);
-        }
-
-        .section-padding {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-heading {
-            font-family: 'Playfair Display', serif;
-            text-align: center;
-            font-size: 3rem;
-            color: var(--primary-red);
-            margin-bottom: 4rem;
-        }
-
-        .commitment-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .commitment-card {
-            background: var(--light-cream);
-            padding: 2.5rem;
-            border-radius: 10px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .commitment-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-        }
-
-        .commitment-card h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--dark-red);
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .image-gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .gallery-item {
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 350px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-            color: white;
-            padding: 2rem 1.5rem 1.5rem;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: 500;
-            transform: translateY(100%);
-            transition: transform 0.4s ease;
-        }
-        
-        .gallery-item:hover .caption {
-            transform: translateY(0);
-        }
-
-        .stores-section {
-            background-color: var(--light-cream);
-        }
-
-        .stores-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-        
-        .store-card {
-            background-color: white;
-            padding: 2.5rem;
-            border-radius: 10px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-
-        .store-card h3 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary-red);
-            font-size: 2rem;
-            border-bottom: 2px solid var(--secondary-gold);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .footer {
-            background-color: var(--dark-charcoal);
-            color: var(--cream-bg);
-            text-align: center;
-            padding: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .menu-toggle { display: block; }
-            .hero-text-island h1 { font-size: 3rem; }
-            .section-heading { font-size: 2.5rem; }
-        }
+        .hero-section { height: 100vh; display: flex; align-items: center; text-align: left; position: relative; color: white; overflow: hidden; }
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url('assets/herobg.jpg') no-repeat center center/cover; z-index: -2; }
+        .hero-section::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.8) 20%, rgba(0,0,0,0.2) 100%); z-index: -1; }
+        .hero-content { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+        .hero-content h1 { font-family: 'Playfair Display', serif; font-size: 5.5rem; font-weight: 800; color: white; margin: 0; line-height: 1.1; max-width: 700px; }
+        .hero-content p { font-size: 1.25rem; margin: 1.5rem 0 2.5rem; font-weight: 300; max-width: 500px; }
+        .btn-primary { background-color: var(--secondary-gold); color: var(--dark-charcoal); padding: 1rem 2.5rem; border-radius: 50px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .btn-primary:hover { background-color: white; transform: translateY(-3px) scale(1.05); }
+        .section-padding { padding: 8rem 2rem; }
+        .section-heading { font-family: 'Playfair Display', serif; text-align: center; font-size: 3.5rem; color: var(--primary-red); margin-bottom: 5rem; }
+        .commitment-section { background-color: white; }
+        .commitment-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .commitment-text h3 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--dark-red); margin-bottom: 1.5rem; }
+        .commitment-text p { line-height: 1.8; margin-bottom: 1rem; }
+        .commitment-cards { display: flex; flex-direction: column; gap: 1.5rem; }
+        .commitment-card { background: var(--light-cream); padding: 1.5rem; border-left: 4px solid var(--secondary-gold); border-radius: 0 8px 8px 0; box-shadow: 0 8px 25px rgba(0,0,0,0.05); }
+        .gallery-section { background-color: var(--cream-bg); }
+        .gallery-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 350px); gap: 1.5rem; }
+        .gallery-item { overflow: hidden; border-radius: 15px; position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+        .gallery-item:nth-child(1) { grid-column: 1 / 2; grid-row: 1 / 3; }
+        .gallery-item:nth-child(2) { grid-column: 2 / 4; grid-row: 1 / 2; }
+        .gallery-item:nth-child(3) { grid-column: 2 / 3; grid-row: 2 / 3; }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-caption { position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white; padding: 2rem 1.5rem; font-size: 1.1rem; opacity: 0; transition: opacity 0.4s ease; }
+        .gallery-item:hover .gallery-caption { opacity: 1; }
+        .stores-section-fancy { position: relative; padding: 8rem 2rem; overflow: hidden; background-color: #f4e9d8; }
+        .stores-section-fancy::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(circle at 15% 85%, hsla(30, 60%, 80%, 0.3), transparent 30%), radial-gradient(circle at 85% 20%, hsla(0, 50%, 60%, 0.25), transparent 35%); z-index: 1; }
+        .stores-container-fancy { max-width: 900px; margin: 0 auto; display: flex; justify-content: center; align-items: center; position: relative; z-index: 2; perspective: 1000px; }
+        .store-card-fancy { position: relative; width: 400px; padding: 2.5rem; border-radius: 15px; background: rgba(255, 255, 255, 0.25); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px 0 rgba(139, 0, 0, 0.15); transition: transform 0.4s ease-out; }
+        .store-card-fancy:nth-child(1) { transform: translateX(20%) rotate(-3deg); z-index: 10; }
+        .store-card-fancy:nth-child(2) { transform: translateX(-20%) rotate(3deg); z-index: 9; }
+        .stores-container-fancy:hover .store-card-fancy:nth-child(1) { transform: translateX(0) rotate(0) scale(1.05); }
+        .stores-container-fancy:hover .store-card-fancy:nth-child(2) { transform: translateX(0) rotate(0) scale(1.05); }
+        .store-card-fancy h3 { font-family: 'Playfair Display', serif; color: var(--dark-charcoal); font-size: 2.2rem; margin: 0 0 1.5rem; border-bottom: 2px solid var(--secondary-gold); padding-bottom: 0.75rem; }
+        .footer { background-color: var(--dark-charcoal); color: var(--cream-bg); text-align: center; padding: 3rem 2rem; }
+        @media (max-width: 900px) { .commitment-container {grid-template-columns: 1fr;} .gallery-grid {grid-template-columns: 1fr; grid-template-rows: auto;} .gallery-item:nth-child(n) {grid-column: auto; grid-row: auto; height: 350px;} .stores-container-fancy { flex-direction: column; gap: 2rem; } .store-card-fancy:nth-child(n) { transform: none; } }
+        @media (max-width: 768px) { .nav-links { display: none; } .menu-toggle { display: block; } .hero-content h1 { font-size: 3.5rem; } }
     </style>
 </head>
 <body>
-    <header class="header">
+    <header class="header" id="header">
         <div class="header-container">
             <a href="index.html" class="logo">Mongolian Grill</a>
             <nav class="nav-links">
@@ -307,146 +91,110 @@
 
     <main>
         <section class="hero-section">
-            <div class="hero-text-island">
-                <h1 class="hero-title">Welcome to Mongolian Grill</h1>
-                <p class="hero-subtitle">Experience the freshest ingredients and authentic flavors, crafted just for you. Build your own stir-fry masterpiece!</p>
-                <a href="menu.html" class="btn-primary hero-button">Build Your Bowl Now</a>
+            <div class="hero-bg" id="hero-bg"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">A Symphony of<br>Sizzle &amp; Spice</h1>
+                <p class="hero-subtitle">Where culinary artistry meets your unique creation. Forge your flavor in the heart of the grill.</p>
+                <a href="menu.html" class="btn-primary hero-button">Craft Your Masterpiece</a>
             </div>
         </section>
 
-        <section class="section-padding">
-            <h2 class="section-heading">Our Story & Commitment</h2>
-            <div class="commitment-grid">
-                <div class="commitment-card">
-                    <h3>Fresh Ingredients</h3>
-                    <p>We source the highest quality meats, crisp vegetables, and savory sauces to ensure every bite is bursting with flavor.</p>
+        <section class="section-padding commitment-section">
+            <div class="commitment-container">
+                <div class="commitment-text">
+                    <h3>Our Commitment</h3>
+                    <p>At Mongolian Grill, we are dedicated to a singular vision: providing an unparalleled, interactive dining experience rooted in freshness and authenticity. We believe that you are the artist, and our ingredients are your palette.</p>
                 </div>
-                <div class="commitment-card">
-                    <h3>Your Creation</h3>
-                    <p>Unleash your inner chef! With our wide selection, you can build a bowl that perfectly suits your taste and dietary needs.</p>
-                </div>
-                <div class="commitment-card">
-                    <h3>Community Focused</h3>
-                    <p>We're proud to be a local favorite, committed to providing a welcoming atmosphere for families and friends to gather.</p>
+                <div class="commitment-cards">
+                    <div class="commitment-card"><strong>Fresh Ingredients:</strong> We source only the highest quality meats and crispest vegetables.</div>
+                    <div class="commitment-card"><strong>Your Creation:</strong> Unleash your inner chef with limitless combinations.</div>
+                    <div class="commitment-card"><strong>Community Focused:</strong> A welcoming hearth for friends and family to gather.</div>
                 </div>
             </div>
         </section>
-
-        <section class="section-padding" style="background-color: white;">
+        
+        <section class="section-padding gallery-section">
             <h2 class="section-heading">A Taste of What We Offer</h2>
-            <div class="image-gallery-grid">
-                <div class="gallery-item">
-                    <img src="assets/homebowl.jpg" alt="Delicious Mongolian Grill Bowl">
-                    <div class="caption">A perfectly crafted stir-fry bowl.</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/homeveggies.jpg" alt="Assortment of fresh vegetables">
-                    <div class="caption">Our fresh and vibrant vegetable selection.</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/homegrill.jpg" alt="Chefs cooking on the grill">
-                    <div class="caption">The sizzle and excitement of the grill.</div>
-                </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="assets/homebowl.jpg" alt="Bowl"><div class="gallery-caption">Perfectly crafted stir-fry bowls.</div></div>
+                <div class="gallery-item"><img src="assets/homeveggies.jpg" alt="Veggies"><div class="gallery-caption">A vibrant selection of fresh vegetables.</div></div>
+                <div class="gallery-item"><img src="assets/homegrill.jpg" alt="Grill"><div class="gallery-caption">The sizzle and excitement of the grill.</div></div>
             </div>
         </section>
 
-        <section class="section-padding stores-section">
-            <h2 class="section-heading">Visit Our Stores</h2>
-            <div class="stores-grid">
-                <div class="store-card">
-                    <h3>Kirkland Location</h3>
-                    <p>123 Main Street, Kirkland, WA 98033</p>
+        <section class="stores-section-fancy">
+            <h2 class="section-heading">Visit Our Sanctuaries</h2>
+            <div class="stores-container-fancy">
+                <div class="store-card-fancy">
+                    <h3>Kirkland</h3>
+                    <p><strong>Address:</strong> 123 Main Street, Kirkland, WA 98033</p>
                     <p><strong>Phone:</strong> (425) 555-1234</p>
-                    <p><strong>Hours:</strong> Mon-Sat: 11 AM - 9 PM, Sun: 12 PM - 8 PM</p>
                 </div>
-                <div class="store-card">
-                    <h3>Bellevue Location</h3>
-                    <p>456 Oak Avenue, Bellevue, WA 98004</p>
+                <div class="store-card-fancy">
+                    <h3>Bellevue</h3>
+                    <p><strong>Address:</strong> 456 Oak Avenue, Bellevue, WA 98004</p>
                     <p><strong>Phone:</strong> (425) 555-5678</p>
-                    <p><strong>Hours:</strong> Mon-Sat: 11 AM - 9 PM, Sun: 12 PM - 8 PM</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="footer">
-        <p>&copy; 2025 Mongolian Grill. All rights reserved.</p>
-    </footer>
+    <footer class="footer"><p>&copy; 2025 Mongolian Grill. All rights reserved.</p></footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            gsap.registerPlugin(ScrollTrigger);
+    document.addEventListener('DOMContentLoaded', () => {
+        gsap.registerPlugin(ScrollTrigger);
+        const header = document.getElementById('header');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        menuToggle.addEventListener('click', () => mobileNav.classList.toggle('active'));
 
-            // Mobile menu toggle
-            const menuToggle = document.getElementById('menuToggle');
-            const mobileNav = document.getElementById('mobileNav');
-            menuToggle.addEventListener('click', () => {
-                mobileNav.classList.toggle('active');
-            });
-            
-            // Hero Animation
-            gsap.from(".hero-title", { duration: 1, y: 50, opacity: 0, delay: 0.5, ease: "power3.out" });
-            gsap.from(".hero-subtitle", { duration: 1, y: 50, opacity: 0, delay: 0.8, ease: "power3.out" });
-            gsap.from(".hero-button", { duration: 1, y: 50, opacity: 0, delay: 1.1, ease: "power3.out" });
-
-            // Section Heading Animations
-            gsap.utils.toArray('.section-heading').forEach(heading => {
-                gsap.from(heading, {
-                    y: 50,
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: heading,
-                        start: "top 80%",
-                    }
-                });
-            });
-
-            // Commitment Cards Animation
-            gsap.utils.toArray('.commitment-card').forEach((card, i) => {
-                gsap.from(card, {
-                    opacity: 0,
-                    y: 50,
-                    duration: 0.5,
-                    delay: i * 0.2,
-                    scrollTrigger: {
-                        trigger: ".commitment-grid",
-                        start: "top 80%",
-                    }
-                });
-            });
-            
-            // Gallery Animation
-            gsap.utils.toArray('.gallery-item').forEach((item, i) => {
-                gsap.from(item, {
-                    opacity: 0,
-                    scale: 0.9,
-                    duration: 0.5,
-                    delay: i * 0.2,
-                    scrollTrigger: {
-                        trigger: ".image-gallery-grid",
-                        start: "top 80%",
-                    }
-                });
-            });
-
-            // Store Cards Animation
-             gsap.utils.toArray('.store-card').forEach((card, i) => {
-                gsap.from(card, {
-                    opacity: 0,
-                    x: i % 2 === 0 ? -50 : 50,
-                    duration: 0.7,
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 85%",
-                    }
-                });
-            });
-
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) header.classList.add('scrolled');
+            else header.classList.remove('scrolled');
         });
+
+        // Hero Animations
+        gsap.from("#hero-bg", { scale: 1.2, duration: 2, ease: "power3.out" });
+        const heroTl = gsap.timeline({delay: 0.5});
+        heroTl.from(".hero-title", { y: 100, opacity: 0, duration: 1, ease: 'power3.out' })
+              .from(".hero-subtitle", { y: 50, opacity: 0, duration: 0.8, ease: 'power2.out' }, "-=0.6")
+              .from(".hero-button", { scale: 0.8, opacity: 0, duration: 0.8, ease: 'back.out(1.7)' }, "-=0.5");
+
+        // Commitment Section Animation
+        gsap.from(".commitment-text", { x: -100, opacity: 0, duration: 1, scrollTrigger: { trigger: ".commitment-container", start: "top 70%" } });
+        gsap.from(".commitment-card", { x: 100, opacity: 0, duration: 0.8, stagger: 0.2, scrollTrigger: { trigger: ".commitment-cards", start: "top 75%" } });
+        
+        // Gallery Animation
+        gsap.utils.toArray('.gallery-item').forEach(item => {
+            gsap.from(item, {
+                opacity: 0,
+                y: 100,
+                scale: 0.9,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: { trigger: item, start: "top 85%" }
+            });
+        });
+
+        // 3D Tilt for Store Cards
+        document.querySelectorAll('.store-card-fancy').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                card.style.transform = `rotateX(${-y/20}deg) rotateY(${x/20}deg) scale(1.05)`;
+                card.style.zIndex = 12;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = card.matches(':nth-child(1)') ? 'translateX(20%) rotate(-3deg)' : 'translateX(-20%) rotate(3deg)';
+                card.style.zIndex = card.matches(':nth-child(1)') ? 10 : 9;
+            });
+        });
+    });
     </script>
 </body>
 </html>
