@@ -3,107 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Craft Your Bowl - Mongolian Grill</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <title>Menu - Mongolian Grill</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-red: #8B0000;
-            --secondary-gold: #FFD700;
-            --cream-bg: #F5F5DC;
-            --dark-charcoal: #2c2c2c;
-            --light-cream: #FFF8E1;
+            --primary-red: #800000;
+            --secondary-gold: #D4AF37;
+            --cream-bg: #F9F6F0;
+            --dark-charcoal: #333333;
         }
-        body { font-family: 'Roboto', sans-serif; background-color: var(--dark-charcoal); color: var(--cream-bg); margin: 0; }
-        .header { background-color: var(--primary-red); padding: 1rem 2rem; position: fixed; width: 100%; top: 0; z-index: 1000; }
-        .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--secondary-gold); font-weight: 800; text-decoration: none; }
-        .nav-links { display: flex; gap: 2.5rem; }
-        .nav-link { color: white; text-decoration: none; font-weight: 400; position: relative; }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; background: var(--secondary-gold); left: 0; bottom: -5px; transition: width 0.4s ease; }
+        body { font-family: 'Roboto', sans-serif; background-color: var(--cream-bg); color: var(--dark-charcoal); margin: 0; }
+        .header { background-color: white; padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary-red); text-decoration: none; }
+        .nav-links, .mobile-nav { display: flex; gap: 2rem; } .nav-link { color: var(--dark-charcoal); text-decoration: none; font-weight: 500; position: relative; }
+        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; background: var(--secondary-gold); left: 50%; bottom: -5px; transform: translateX(-50%); transition: width 0.4s ease; }
         .nav-link:hover, .nav-link.active { color: var(--secondary-gold); }
         .nav-link:hover::after, .nav-link.active::after { width: 100%; }
-        .menu-container { padding-top: 120px; text-align: center; }
-        .menu-title { font-family: 'Playfair Display', serif; font-size: 4.5rem; color: white; }
-        .menu-subtitle { font-size: 1.2rem; color: var(--cream-bg); max-width: 600px; margin: 1rem auto 0; }
-        .menu-steps-container { height: 100vh; display: flex; align-items: center; padding: 0 2rem; }
-        .menu-steps-panel { display: flex; gap: 4rem; padding: 2rem; }
-        .menu-step-card { background: var(--light-cream); color: var(--dark-charcoal); width: 350px; flex-shrink: 0; border-radius: 15px; padding: 2rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .menu-step-card h3 { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary-red); margin: 0 0 1rem; }
-        .menu-step-card p { line-height: 1.6; }
-        .menu-step-card img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-top: 1.5rem; }
-        .footer { background-color: var(--cream-bg); color: var(--dark-charcoal); text-align: center; padding: 3rem 2rem; }
+        .menu-toggle { display: none; } .mobile-nav { display: none; }
+        .menu-hero { padding: 6rem 2rem 4rem; text-align: center; background-color: white; }
+        .menu-hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary-red); margin: 0; }
+        .menu-hero p { font-size: 1.1rem; max-width: 600px; margin: 1rem auto 0; }
+        .menu-steps-section { padding: 4rem 2rem; max-width: 800px; margin: 0 auto; }
+        .menu-step-card { display: flex; align-items: center; gap: 2rem; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 25px rgba(0,0,0,0.05); margin-bottom: 2rem; }
+        .menu-step-card:nth-child(even) { flex-direction: row-reverse; }
+        .menu-step-card img { width: 250px; height: 180px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+        .step-content h3 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary-red); margin: 0 0 1rem; }
+        .step-content p { line-height: 1.6; }
+        .footer { background-color: var(--dark-charcoal); color: var(--cream-bg); text-align: center; padding: 2.5rem; }
+        @media (max-width: 768px) { .nav-links { display: none; } .menu-toggle { display: block; font-size: 1.8rem; color: var(--dark-charcoal); background: none; border: none; cursor: pointer; } .mobile-nav.active { display: flex; flex-direction: column; background-color: white; position: absolute; top: 100%; left: 0; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); } .mobile-nav .nav-link { padding: 1rem; border-top: 1px solid #eee; } .menu-step-card, .menu-step-card:nth-child(even) { flex-direction: column; text-align: center; } .menu-step-card img { width: 100%; }}
     </style>
 </head>
 <body>
     <header class="header">
-        <div class="header-container">
-            <a href="index.html" class="logo">Mongolian Grill</a>
-            <nav class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="about.html" class="nav-link">About Us</a>
-                <a href="menu.html" class="nav-link active">Menu</a>
-                <a href="contact.html" class="nav-link">Contact Us</a>
-            </nav>
-        </div>
+        <div class="header-container"><a href="index.html" class="logo">Mongolian Grill</a><nav class="nav-links"><a href="index.html" class="nav-link">Home</a><a href="about.html" class="nav-link">About Us</a><a href="menu.html" class="nav-link active">Menu</a><a href="contact.html" class="nav-link">Contact Us</a></nav><button class="menu-toggle" id="menuToggle">&#9776;</button></div>
+        <nav class="mobile-nav" id="mobileNav"><a href="index.html" class="nav-link">Home</a><a href="about.html" class="nav-link">About Us</a><a href="menu.html" class="nav-link active">Menu</a><a href="contact.html" class="nav-link">Contact Us</a></nav>
     </header>
-
     <main>
-        <div class="menu-container">
-            <h1 class="menu-title">The Culinary Journey</h1>
-            <p class="menu-subtitle">Embark on a five-step journey to create your personal masterpiece. Scroll to explore the possibilities.</p>
-        </div>
-
-        <div class="menu-steps-container" id="menu-steps-container">
-            <div class="menu-steps-panel" id="menu-steps-panel">
-                <div class="menu-step-card"><h3>Step 1: Noodles</h3><p>Choose your foundation: delicate Rice Noodles or classic Chow Mein.</p><img src="https://placehold.co/300x200/8B0000/F5F5DC?text=Noodles"></div>
-                <div class="menu-step-card"><h3>Step 2: Toppings</h3><p>Adorn your bowl with an array of fresh, crisp vegetables and add-ins.</p><img src="https://placehold.co/300x200/8B0000/F5F5DC?text=Toppings"></div>
-                <div class="menu-step-card"><h3>Step 3: Protein</h3><p>Select your hero: Beef, Pork, Chicken, Egg, or Tofu.</p><img src="https://placehold.co/300x200/8B0000/F5F5DC?text=Protein"></div>
-                <div class="menu-step-card"><h3>Step 4: Rice</h3><p>Complement your creation with fluffy White or wholesome Brown Rice.</p><img src="https://placehold.co/300x200/8B0000/F5F5DC?text=Rice"></div>
-                <div class="menu-step-card"><h3>Step 5: Sauce</h3><p>Unleash the flavor with our signature sauces, from savory to fiery.</p><img src="https://placehold.co/300x200/8B0000/F5F5DC?text=Sauces"></div>
-            </div>
-        </div>
+        <section class="menu-hero"><h1>Craft Your Own Bowl</h1><p>Follow these simple steps to create your perfect Mongolian Grill masterpiece!</p></section>
+        <section class="menu-steps-section">
+            <div class="menu-step-card"><img src="https://placehold.co/300x200/800000/F9F6F0?text=Noodles"><div class="step-content"><h3>Step 1: Choose Your Noodles</h3><p>Chow Mein or Rice Noodles</p></div></div>
+            <div class="menu-step-card"><img src="https://placehold.co/300x200/800000/F9F6F0?text=Toppings"><div class="step-content"><h3>Step 2: Add Toppings</h3><p>A fresh selection of crisp vegetables and other delicious add-ins.</p></div></div>
+            <div class="menu-step-card"><img src="https://placehold.co/300x200/800000/F9F6F0?text=Protein"><div class="step-content"><h3>Step 3: Choose Your Protein</h3><p>Beef, Pork, Chicken, Egg, or Tofu</p></div></div>
+            <div class="menu-step-card"><img src="https://placehold.co/300x200/800000/F9F6F0?text=Rice"><div class="step-content"><h3>Step 4: Choose Your Rice</h3><p>Fluffy White or Wholesome Brown</p></div></div>
+            <div class="menu-step-card"><img src="https://placehold.co/300x200/800000/F9F6F0?text=Sauces"><div class="step-content"><h3>Step 5: Select Your Sauce</h3><p>A wide array of savory, sweet, and spicy sauces to complete your meal.</p></div></div>
+        </section>
     </main>
-
     <footer class="footer"><p>&copy; 2025 Mongolian Grill. All rights reserved.</p></footer>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            gsap.registerPlugin(ScrollTrigger);
-            gsap.from(".menu-title", { duration: 1, y: 50, opacity: 0, ease: 'power3.out', delay: 0.2 });
-            gsap.from(".menu-subtitle", { duration: 1, y: 50, opacity: 0, ease: 'power3.out', delay: 0.4 });
-
-            const panel = document.getElementById('menu-steps-panel');
-            const totalScroll = panel.scrollWidth - window.innerWidth + 80; // 80 for padding
-            
-            gsap.to(panel, {
-                x: -totalScroll,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "#menu-steps-container",
-                    start: "top top",
-                    end: `+=${totalScroll}`,
-                    pin: true,
-                    scrub: 1,
-                }
-            });
-
-            gsap.utils.toArray('.menu-step-card').forEach(card => {
-                gsap.from(card, {
-                    y: 100,
-                    opacity: 0,
-                    scale: 0.9,
-                    duration: 0.8,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: card,
-                        containerAnimation: gsap.to(panel, { x: -totalScroll, ease: "none" }),
-                        start: "left 90%",
-                        toggleActions: "play none none reverse",
-                    }
-                });
-            });
+        document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('mobileNav').classList.toggle('active'));
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.from('.menu-hero > *', { duration: 1, y: 30, opacity: 0, stagger: 0.2, ease: 'power3.out' });
+        gsap.utils.toArray('.menu-step-card').forEach(card => {
+            gsap.from(card, { duration: 0.8, y: 50, opacity: 0, ease: 'power3.out', scrollTrigger: { trigger: card, start: 'top 85%' } });
         });
     </script>
 </body>
