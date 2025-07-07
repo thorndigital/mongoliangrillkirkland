@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Menu - Build Your Bowl at Mongolian Grill</title>
-
+    <title>Mongolian Grill - The Ultimate Stir-Fry Experience</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
     <style>
         :root {
             --primary-red: #B71C1C;
@@ -18,356 +16,86 @@
             --light-gray-bg: #F7F7F7;
             --white: #FFFFFF;
             --shadow-color: rgba(0, 0, 0, 0.07);
-            --shadow-color-hover: rgba(0, 0, 0, 0.15);
         }
-
-        /* --- Global Styles & Resets --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--cream-bg);
-            color: var(--dark-charcoal);
-            overflow-x: hidden;
-            cursor: none; /* Hide default cursor */
-        }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--cream-bg); color: var(--dark-charcoal); overflow-x: hidden; cursor: none; }
         .section-padding { padding: 6rem 2rem; }
-        a, button { cursor: none; }
+        a, button { cursor: none; text-decoration: none; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 4vw, 3.5rem); color: var(--primary-red); text-align: center; margin-bottom: 4rem; }
+        .cta-button { display: inline-block; background-color: var(--primary-red); color: var(--white); padding: 1rem 2.5rem; border-radius: 50px; font-weight: 600; box-shadow: 0 8px 15px var(--shadow-color); transition: all 0.3s ease; }
+        .cta-button:hover { transform: translateY(-3px); background-color: #A31919; box-shadow: 0 12px 25px rgba(183, 28, 28, 0.3); }
 
-        /* --- Custom Cursor --- */
-        .cursor-dot, .cursor-outline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity 0.3s, transform 0.3s;
-        }
-        .cursor-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--secondary-gold);
-        }
-        .cursor-outline {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(234, 179, 8, 0.2);
-            transition: width 0.3s, height 0.3s, background-color 0.3s, transform 0.1s;
-        }
+        .cursor-dot, .cursor-outline { position: fixed; top: 0; left: 0; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; z-index: 9999; opacity: 0; transition: opacity 0.3s, transform 0.3s; }
+        .cursor-dot { width: 8px; height: 8px; background-color: var(--secondary-gold); }
+        .cursor-outline { width: 40px; height: 40px; background-color: rgba(234, 179, 8, 0.2); transition: width 0.3s, height 0.3s, background-color 0.3s, transform 0.1s; }
         body.cursor-visible .cursor-dot, body.cursor-visible .cursor-outline { opacity: 1; }
-        .cursor-interact .cursor-outline {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(183, 28, 28, 0.2);
-        }
+        .cursor-interact .cursor-outline { width: 60px; height: 60px; background-color: rgba(183, 28, 28, 0.2); }
         
-        /* --- Preloader --- */
-        .preloader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--cream-bg);
-            display: flex; justify-content: center; align-items: center;
-            z-index: 9998;
-        }
-        .loader-logo {
-            font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary-red);
-        }
+        .preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--cream-bg); display: flex; justify-content: center; align-items: center; z-index: 9998; }
+        .loader-logo { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--primary-red); }
+        .header { position: fixed; top: 0; width:100%; z-index: 1000; padding: 1.5rem 2rem; background-color: transparent; transition: background-color 0.4s ease, box-shadow 0.4s ease; }
+        .header.scrolled { background-color: rgba(253, 251, 247, 0.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--white); text-decoration: none; font-weight: 700; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
+        .header.scrolled .logo { color: var(--primary-red); text-shadow: none; }
+        .nav-links { display: flex; gap: 2.5rem; }
+        .nav-link { color: var(--white); text-decoration: none; font-weight: 500; position: relative; text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
+        .header.scrolled .nav-link { color: var(--dark-charcoal); text-shadow: none; }
+        .nav-link::after { content: ''; position: absolute; width: 100%; height: 2px; background: var(--secondary-gold); left: 0; bottom: -8px; transform: scaleX(0); transform-origin: right; transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1); }
+        .nav-link:hover { color: var(--secondary-gold) !important; }
+        .nav-link.active { color: var(--secondary-gold) !important; }
+        .header.scrolled .nav-link:hover, .header.scrolled .nav-link.active { color: var(--primary-red) !important; }
+        .nav-link:hover::after, .nav-link.active::after { transform: scaleX(1); transform-origin: left; }
+        .menu-toggle, .mobile-nav { display: none; }
+        
+        .hero-section { height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--white); }
+        #hero-video { position: absolute; top: 50%; left: 50%; width: 100%; height: 100%; object-fit: cover; transform: translate(-50%, -50%); z-index: -2; }
+        .hero-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.4)); z-index: -1; }
+        .hero-content h1 { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 800; text-shadow: 2px 2px 15px rgba(0,0,0,0.6); line-height: 1.1; margin-bottom: 1rem; }
+        .hero-content p { font-size: 1.3rem; margin-bottom: 2rem; }
 
-        /* --- Header & Navigation Bar --- */
-        .header {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 1.5rem 2rem;
-            background-color: rgba(253, 251, 247, 0.85);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(234, 179, 8, 0.2);
-        }
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--primary-red);
-            text-decoration: none;
-            font-weight: 700;
-        }
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-        }
-        .nav-link {
-            color: var(--dark-charcoal);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            transition: color 0.4s ease;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background: var(--secondary-gold);
-            left: 0;
-            bottom: -8px;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        .nav-link:hover, .nav-link.active {
-            color: var(--primary-red);
-        }
-        .nav-link:hover::after, .nav-link.active::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-        .menu-toggle {
-             display: none;
-        }
-        .mobile-nav {
-            display: none;
-        }
+        .intro-section { text-align: center; }
+        .intro-section .lead { font-size: 1.3rem; max-width: 800px; margin: -2rem auto 4rem; line-height: 1.8; }
+        .steps-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto; }
+        .step { text-align: center; opacity: 0; }
+        .step-icon { height: 70px; width: 70px; margin-bottom: 1.5rem; color: var(--primary-red); }
+        .step h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem; }
+        .step p { font-size: 1rem; line-height: 1.7; max-width: 35ch; margin: 0 auto; }
         
-        /* --- Menu Hero Section --- */
-        .menu-hero {
-            text-align: center;
-            padding: 7rem 2rem;
-            color: var(--white);
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1598214886806-2c7b81560518?q=80&w=2070&auto=format&fit=crop') no-repeat center center;
-            background-size: cover;
-            background-attachment: fixed;
-        }
-        .menu-hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 800;
-            font-size: clamp(3rem, 6vw, 5rem);
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-        }
-        .menu-hero p {
-            font-size: 1.2rem;
-            max-width: 650px;
-            margin: 1rem auto 0;
-            font-weight: 300;
-            opacity: 0.9;
-        }
+        .promo-section { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 5rem; max-width: 1200px; margin: 0 auto; }
+        .promo-text h2 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary-red); line-height: 1.2; margin-bottom: 1.5rem; }
+        .promo-text p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem; }
+        .promo-image { border-radius: 12px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2); }
+        .promo-image img { width: 100%; display: block; }
+        
+        .testimonials-section { background: var(--light-gray-bg); }
+        .testimonial-card { background-color: var(--white); padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 30px var(--shadow-color); text-align: center; max-width: 700px; margin: 0 auto; }
+        .testimonial-text { font-size: 1.2rem; line-height: 1.8; font-style: italic; color: #555; margin-bottom: 1.5rem; position: relative; }
+        .testimonial-text::before { content: '“'; position: absolute; left: 50%; transform: translateX(-50%); top: -2.5rem; font-family: 'Playfair Display', serif; font-size: 5rem; color: var(--secondary-gold); opacity: 0.5; }
+        .testimonial-author { font-weight: 600; color: var(--primary-red); }
 
-        /* --- Bowl Builder Section --- */
-        .bowl-builder-section {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 4rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            align-items: flex-start;
-        }
-        
-        /* --- Interactive Accordion Menu --- */
-        .steps-accordion {
-            width: 100%;
-        }
-        .step-accordion {
-            border-bottom: 1px solid #e0e0e0;
-        }
-        .step-header {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2rem 1rem;
-            background: none;
-            border: none;
-            text-align: left;
-        }
-        .step-header h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.8rem, 3vw, 2.5rem);
-            color: var(--dark-charcoal);
-        }
-        .step-header .arrow {
-            font-size: 2rem;
-            color: var(--primary-red);
-            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-        .step-accordion.active .arrow {
-            transform: rotate(180deg);
-        }
-        .step-body {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
-        }
-        .ingredients-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            padding: 0 1rem 2rem;
-        }
-        .ingredient-btn {
-            background-color: var(--white);
-            border: 2px solid #eee;
-            border-radius: 8px;
-            padding: 1rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        .ingredient-btn:hover {
-            transform: translateY(-5px);
-            border-color: var(--secondary-gold);
-            box-shadow: 0 10px 20px var(--shadow-color);
-        }
-        .ingredient-btn.selected {
-            border-color: var(--primary-red);
-            background-color: #fff9f9;
-        }
-        .ingredient-btn.selected::after {
-            content: '✓';
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            color: var(--primary-red);
-            font-weight: bold;
-        }
-        .ingredient-btn img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 0.75rem;
-        }
-        .ingredient-btn span {
-            font-weight: 500;
-        }
-        
-        /* --- Bowl Visualizer --- */
-        .bowl-visualizer-wrapper {
-            position: sticky;
-            top: 120px; /* Adjust based on header height */
-        }
-        .bowl-visualizer {
-            background-color: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 15px 50px var(--shadow-color);
-            padding: 2rem;
-        }
-        .bowl-visualizer h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--primary-red);
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        #bowl-list {
-            list-style: none;
-            min-height: 200px;
-        }
-        #bowl-list li {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #f0f0f0;
-            font-weight: 500;
-            opacity: 0; /* for animation */
-        }
-        .bowl-price {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 2px dashed #eee;
-        }
-        .price {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--dark-charcoal);
-        }
-        .price span { font-size: 1rem; color: #666; font-weight: 400; }
-        
-        /* --- Footer --- */
-        .footer {
-            background-color: var(--dark-charcoal); color: var(--cream-bg); text-align: center;
-            padding: 5rem 2rem 2rem; margin-top: 6rem;
-        }
-        .footer-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem; max-width: 1400px; margin: 0 auto 4rem; text-align: left;
-        }
-        .footer-column h4 {
-            font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--secondary-gold);
-            margin-bottom: 1.5rem;
-        }
-        .footer-column p, .footer-column a {
-            color: #ccc; line-height: 1.8; text-decoration: none;
-            display: block; margin-bottom: 0.5rem; transition: color 0.3s ease;
-        }
+        .footer { background-color: var(--dark-charcoal); color: var(--cream-bg); text-align: center; padding: 5rem 2rem 2rem; }
+        .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; max-width: 1400px; margin: 0 auto 4rem; text-align: left; }
+        .footer-column h4 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--secondary-gold); margin-bottom: 1.5rem; }
+        .footer-column p, .footer-column a { color: #ccc; line-height: 1.8; text-decoration: none; display: block; margin-bottom: 0.5rem; transition: color 0.3s ease; }
         .footer-column a:hover { color: var(--white); }
         .social-icons { display: flex; gap: 1.5rem; margin-top: 1rem; }
-        .social-icons a svg {
-            width: 24px; height: 24px; fill: #ccc; transition: all 0.3s ease;
-        }
+        .social-icons a svg { width: 24px; height: 24px; fill: #ccc; transition: all 0.3s ease; }
         .social-icons a:hover svg { fill: var(--secondary-gold); transform: translateY(-3px); }
-        .footer-bottom {
-            border-top: 1px solid #444; padding-top: 2rem;
-            font-weight: 300; letter-spacing: 0.5px; color: #aaa;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .bowl-builder-section {
-                grid-template-columns: 1fr;
-            }
-            .bowl-visualizer-wrapper {
-                position: relative;
-                top: 0;
-                margin-top: 4rem;
-            }
-            body { cursor: auto; } /* Disable custom cursor on mobile */
-            .cursor-dot, .cursor-outline { display: none; }
-        }
+        .footer-bottom { border-top: 1px solid #444; padding-top: 2rem; font-weight: 300; letter-spacing: 0.5px; color: #aaa; }
+        
         @media (max-width: 768px) {
+            body { cursor: auto; } .cursor-dot, .cursor-outline { display: none; }
             .nav-links { display: none; }
-            .menu-toggle {
-                display: block;
-                font-size: 1.8rem;
-                color: var(--dark-charcoal);
-                background: none;
-                border: none;
-                z-index: 1001;
-            }
-            .mobile-nav {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2rem;
-                background-color: var(--cream-bg);
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
-                transform: translateX(100%);
-                transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
-                z-index: 1000;
-            }
-            .mobile-nav.active {
-                transform: translateX(0);
-            }
-            .mobile-nav .nav-link {
-                font-size: 2rem;
-                opacity: 0;
-            }
-            .footer-container { text-align: center; }
-            .footer-column .social-icons { justify-content: center; }
+            .menu-toggle { display: block; font-size: 1.8rem; color: var(--white); background: none; border: none; z-index: 1001; text-shadow: 1px 1px 3px #000; }
+            .header.scrolled .menu-toggle { color: var(--dark-charcoal); text-shadow: none; }
+            .mobile-nav { display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 2rem; background-color: var(--cream-bg); position: fixed; top: 0; left: 0; width: 100%; height: 100vh; transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1); z-index: 1000; }
+            .mobile-nav.active { transform: translateX(0); }
+            .mobile-nav .nav-link { font-size: 2rem; opacity: 0; color: var(--dark-charcoal); text-shadow: none; }
+            .promo-section { grid-template-columns: 1fr; gap: 3rem; }
+            .promo-section:nth-of-type(odd) .promo-image { grid-row: 1; }
         }
-
     </style>
 </head>
 <body>
@@ -376,127 +104,98 @@
 
     <div class="preloader"><div class="loader-logo">MG</div></div>
 
-    <header class="header">
+    <header class="header" id="header">
         <div class="header-container">
             <a href="index.html" class="logo">Mongolian Grill</a>
             <nav class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html" class="nav-link active">Home</a>
                 <a href="about.html" class="nav-link">About Us</a>
-                <a href="menu.html" class="nav-link active">Menu</a>
+                <a href="menu.html" class="nav-link">Menu</a>
                 <a href="contact.html" class="nav-link">Contact</a>
             </nav>
             <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu">&#9776;</button>
         </div>
-        <nav class="mobile-nav" id="mobileNav">
-            <a href="index.html" class="nav-link">Home</a>
+         <nav class="mobile-nav" id="mobileNav">
+            <a href="index.html" class="nav-link active">Home</a>
             <a href="about.html" class="nav-link">About Us</a>
-            <a href="menu.html" class="nav-link active">Menu</a>
+            <a href="menu.html" class="nav-link">Menu</a>
             <a href="contact.html" class="nav-link">Contact</a>
         </nav>
     </header>
 
     <main>
-        <section class="menu-hero">
-            <h1>Build Your Perfect Bowl</h1>
-            <p>You're the chef! Follow the steps below to craft a culinary masterpiece that's uniquely yours, and see it come to life in real-time.</p>
+        <section class="hero-section">
+            <div class="hero-overlay"></div>
+            <video autoplay muted loop playsinline id="hero-video">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-frying-food-in-a-wok-4217-large.mp4" type="video/mp4">
+            </video>
+            <div class="hero-content">
+                <h1>Your Creation Awaits</h1>
+                <p>The ultimate stir-fry experience, crafted by you.</p>
+                <a href="menu.html" class="cta-button">Build Your Bowl</a>
+            </div>
         </section>
 
-        <section class="bowl-builder-section section-padding">
-            <div class="steps-accordion" id="steps-accordion">
-                <div class="step-accordion active">
-                    <button class="step-header">
-                        <h3>Step 1: Choose Your Base</h3>
-                        <div class="arrow">↓</div>
-                    </button>
-                    <div class="step-body">
-                        <div class="ingredients-grid" data-category="base">
-                            <button class="ingredient-btn" data-name="White Rice"><img src="https://images.unsplash.com/photo-1596560544141-278d4794fa79?q=80&w=200&auto=format&fit=crop" alt="White Rice"><span>White Rice</span></button>
-                            <button class="ingredient-btn" data-name="Brown Rice"><img src="https://images.unsplash.com/photo-1512058564366-18510be2db19?q=80&w=200&auto=format&fit=crop" alt="Brown Rice"><span>Brown Rice</span></button>
-                            <button class="ingredient-btn" data-name="Chow Mein"><img src="https://images.unsplash.com/photo-1598214886806-2c7b81560518?q=80&w=200&auto=format&fit=crop" alt="Chow Mein"><span>Chow Mein</span></button>
-                            <button class="ingredient-btn" data-name="Rice Noodles"><img src="https://images.unsplash.com/photo-1569718212165-fb69c5953c52?q=80&w=200&auto=format&fit=crop" alt="Rice Noodles"><span>Rice Noodles</span></button>
-                        </div>
-                    </div>
+        <section class="intro-section section-padding">
+            <p class="lead">Welcome to a dining experience where you are the chef. Combine the freshest ingredients, craft your own signature sauces, and watch as our grill masters bring your unique creation to life on our searing-hot grill.</p>
+            <div class="steps-container">
+                <div class="step">
+                    <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21.928 12.645L20.14 3.528A4.002 4.002 0 0 0 16.215 1h-8.43a4.002 4.002 0 0 0-3.925 2.528L2.072 12.645A4.002 4.002 0 0 0 3.05 18.2L5.8 20.95a1 1 0 0 0 .7.3h11a1 1 0 0 0 .7-.3l2.75-2.75a4.002 4.002 0 0 0 .978-5.555zM17 19.55H7L4.45 17.001a2 2 0 0 1-.488-2.777L5.75 6h12.5l1.788 8.224a2 2 0 0 1-.488 2.777L17 19.55zM9 11h6V9H9v2zm-2 4h10v-2H7v2z"/></svg>
+                    <h3>1. Choose</h3>
+                    <p>Fill your bowl with fresh vegetables, proteins, and noodles from our market bar.</p>
                 </div>
-                <div class="step-accordion">
-                    <button class="step-header">
-                        <h3>Step 2: Pick Your Proteins</h3>
-                        <div class="arrow">↓</div>
-                    </button>
-                    <div class="step-body">
-                        <div class="ingredients-grid" data-category="proteins">
-                            <button class="ingredient-btn" data-name="Beef"><img src="https://images.unsplash.com/photo-1603048200653-7a270a6c085b?q=80&w=200&auto=format&fit=crop" alt="Beef"><span>Beef</span></button>
-                            <button class="ingredient-btn" data-name="Chicken"><img src="https://images.unsplash.com/photo-1604503468817-a06869382129?q=80&w=200&auto=format&fit=crop" alt="Chicken"><span>Chicken</span></button>
-                            <button class="ingredient-btn" data-name="Pork"><img src="https://images.unsplash.com/photo-1608978059537-15d380766323?q=80&w=200&auto=format&fit=crop" alt="Pork"><span>Pork</span></button>
-                            <button class="ingredient-btn" data-name="Tofu"><img src="https://images.unsplash.com/photo-1588612043649-567637872202?q=80&w=200&auto=format&fit=crop" alt="Tofu"><span>Tofu</span></button>
-                             <button class="ingredient-btn" data-name="Egg"><img src="https://images.unsplash.com/photo-1582512902642-a05e2d53c734?q=80&w=200&auto=format&fit=crop" alt="Egg"><span>Egg</span></button>
-                        </div>
-                    </div>
+                <div class="step">
+                     <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19.673 8.382a3.001 3.001 0 0 0-3.187-2.155A3.003 3.003 0 0 0 13.5 3.38V2a1 1 0 0 0-2 0v1.38a3.003 3.003 0 0 0-2.986 2.847 3.001 3.001 0 0 0-3.187 2.155A4.002 4.002 0 0 0 1 12.23v2.24a1 1 0 0 0 .5 1.5l1.071.535a3.988 3.988 0 0 0 2.929 1.295H18.5a3.988 3.988 0 0 0 2.929-1.295l1.071-.535a1 1 0 0 0 .5-1.5v-2.24a4.002 4.002 0 0 0-3.327-3.848zM18.5 16H5.5a2 2 0 0 1-1.458-.642L3 14.47v-2.24a2 2 0 0 1 1.664-1.924A5.004 5.004 0 0 1 8.5 5.38a5.004 5.004 0 0 1 7 0 5.004 5.004 0 0 1 3.836 4.926A2 2 0 0 1 21 12.23v2.24l-1.042.888A2 2 0 0 1 18.5 16z"/></svg>
+                    <h3>2. Create</h3>
+                    <p>Mix and match from our array of signature sauces and oils to craft your unique flavor.</p>
                 </div>
-                 <div class="step-accordion">
-                    <button class="step-header">
-                        <h3>Step 3: Add Your Veggies</h3>
-                        <div class="arrow">↓</div>
-                    </button>
-                    <div class="step-body">
-                        <div class="ingredients-grid" data-category="veggies">
-                            <button class="ingredient-btn" data-name="Broccoli"><img src="https://images.unsplash.com/photo-1587351177721-b5203a936934?q=80&w=200&auto=format&fit=crop" alt="Broccoli"><span>Broccoli</span></button>
-                            <button class="ingredient-btn" data-name="Bell Peppers"><img src="https://images.unsplash.com/photo-1563737137257-f2195e3454b5?q=80&w=200&auto=format&fit=crop" alt="Bell Peppers"><span>Bell Peppers</span></button>
-                            <button class="ingredient-btn" data-name="Onions"><img src="https://images.unsplash.com/photo-1587049352851-d481dd123563?q=80&w=200&auto=format&fit=crop" alt="Onions"><span>Onions</span></button>
-                            <button class="ingredient-btn" data-name="Carrots"><img src="https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?q=80&w=200&auto=format&fit=crop" alt="Carrots"><span>Carrots</span></button>
-                            <button class="ingredient-btn" data-name="Mushrooms"><img src="https://images.unsplash.com/photo-1542191449-33519391a92e?q=80&w=200&auto=format&fit=crop" alt="Mushrooms"><span>Mushrooms</span></button>
-                        </div>
-                    </div>
+                <div class="step">
+                    <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14.248 3.333a1 1 0 0 0-1.132-.904A13.04 13.04 0 0 0 2.012 11.5a1 1 0 1 0 1.99.2A11.04 11.04 0 0 1 13.116 3.09a1 1 0 0 0 1.132-.902L14.248 3.333zM9.485 5.5a1 1 0 0 0-1.341.643A8.995 8.995 0 0 0 4.02 11.6a1 1 0 1 0 1.99.2A6.996 6.996 0 0 1 9.852 7.15a1 1 0 0 0-.367-1.65zm12.443 6.002a1 1 0 0 0-1.99-.2 9.04 9.04 0 0 1-12.01 6.843 1 1 0 0 0-.884 1.83A11.04 11.04 0 0 0 22.01 11.7a1 1 0 0 0-.082-.198zM20.5 21a1 1 0 0 1-1-1v-2.07c0-2.06-1.52-4.14-3.5-5.33a1 1 0 1 0-1 1.72A3.593 3.593 0 0 1 17.5 18v2a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-4.07c0-2.06-1.52-4.14-3.5-5.33a1 1 0 1 0-1 1.72A3.593 3.593 0 0 1 12.5 16v4a1 1 0 0 1-1 1H5.75a1 1 0 0 1-.86-.5l-.5-1a1 1 0 0 1 .11-1.1l3-3a1 1 0 0 1 1.4 0l1.29 1.29a1 1 0 0 0 1.4 0l1.3-1.3a1 1 0 0 1 1.4 0l3 3a1 1 0 0 1 .1 1.1l-.5 1a1 1 0 0 1-.85.5H11.5a1 1 0 0 0 0 2h9z"/></svg>
+                    <h3>3. Grill</h3>
+                    <p>Watch as our grill masters cook your meal to perfection on our searing-hot grill.</p>
                 </div>
             </div>
+        </section>
 
-            <div class="bowl-visualizer-wrapper">
-                <div class="bowl-visualizer">
-                    <h3>Your Custom Bowl</h3>
-                    <ul id="bowl-list">
-                        </ul>
-                    <div class="bowl-price">
-                        <div class="price">$19.99 <span>/ bowl</span></div>
-                    </div>
-                </div>
+        <section class="promo-section section-padding">
+            <div class="promo-text">
+                <h2>The Freedom of Flavor</h2>
+                <p>Our interactive menu empowers you to become the master of your meal. With dozens of ingredients and endless sauce combinations, no two bowls are ever the same. Discover your perfect creation today.</p>
+                <a href="menu.html" class="cta-button">Explore The Menu</a>
+            </div>
+            <div class="promo-image">
+                <img src="https://images.unsplash.com/photo-1541544331-758941657b98?q=80&w=1000&auto=format&fit=crop" alt="Chef cooking food on a large round grill">
+            </div>
+        </section>
+
+        <section class="testimonials-section section-padding">
+             <div class="testimonial-card">
+                <p class="testimonial-text">The best Mongolian grill in town, hands down. The sauce selection is incredible, and the staff is always so friendly. A perfect spot for a quick, healthy, and delicious lunch.</p>
+                <p class="testimonial-author">- Mark T.</p>
+            </div>
+        </section>
+
+        <section class="promo-section section-padding">
+             <div class="promo-image">
+                <img src="https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=1000&auto=format&fit=crop" alt="Restaurant founders smiling">
+            </div>
+            <div class="promo-text">
+                <h2>Our Story, Your Table</h2>
+                <p>Since 2005, we've been dedicated to a simple idea: that food should be fun, fresh, and full of flavor. We're a family-run establishment with a passion for bringing people together over a great meal.</p>
+                <a href="about.html" class="cta-button">Read Our Story</a>
             </div>
         </section>
     </main>
-
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-column">
-                <h4>About Us</h4>
-                <p>The original create-your-own stir-fry experience, serving up fresh ingredients and bold flavors since 2005.</p>
-            </div>
-            <div class="footer-column">
-                <h4>Quick Links</h4>
-                <a href="/index.html">Home</a>
-                <a href="/about.html">About Us</a>
-                <a href="/menu.html">Menu</a>
-                <a href="/contact.html">Contact</a>
-            </div>
-            <div class="footer-column">
-                <h4>Contact Us</h4>
-                <p>123 Grill Master Ave<br>Flavor Town, USA 98072</p>
-                <a href="tel:555-123-4567">(555) 123-4567</a>
-                <a href="mailto:contact@mongoliangrill.com">contact@mongoliangrill.com</a>
-            </div>
-            <div class="footer-column">
-                <h4>Connect With Us</h4>
-                <div class="social-icons">
-                    <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06c0 5.07 3.67 9.27 8.44 9.94v-7.02h-2.52v-2.9h2.52V9.82c0-2.48 1.49-3.87 3.75-3.87 1.08 0 2.02.08 2.29.12v2.6h-1.55c-1.21 0-1.45.58-1.45 1.42v1.86h2.92l-.38 2.9h-2.54v7.02C18.33 21.33 22 17.13 22 12.06c0-5.53-4.5-10.02-10-10.02z"/></svg></a>
-                    <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.23-2.43.48-.65.25-1.23.59-1.79 1.15-.56.56-.9 1.14-1.15 1.79-.25.64-.43 1.37-.48 2.43C2.01 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.23 1.79.48 2.43.25.65.59 1.23 1.15 1.79.56.56 1.14.9 1.79 1.15.64.25 1.37.43 2.43.48 1.06.05 1.4.06 4.12.06s3.06-.01 4.12-.06c1.06-.05 1.79-.23 2.43-.48.65-.25 1.23-.59 1.79-1.15.56.56-.9-1.14 1.15-1.79.25-.64.43-1.37.48-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.23-1.79-.48-2.43-.25-.65-.59-1.23-1.15-1.79-.56-.56-1.14-.9-1.79-1.15-.64-.25-1.37-.43-2.43-.48C15.06 2.01 14.72 2 12 2zm0 1.8c2.67 0 2.99.01 4.05.06 1.02.05 1.58.22 1.96.38.48.2.82.44 1.18.8.36.36.6.7.8 1.18.16.38.33.94.38 1.96.05 1.06.06 1.38.06 4.05s-.01 2.99-.06 4.05c-.05 1.02-.22 1.58-.38 1.96-.2.48-.44.82-.8 1.18-.36.36-.7.6-1.18.8-.38.16-.94.33-1.96.38-1.06.05-1.38.06-4.05.06s-2.99-.01-4.05-.06c-1.02-.05-1.58-.22-1.96-.38-.48-.2-.82-.44-.8-1.18-.36-.36-.6-.7-.8-1.18-.16-.38-.33-.94-.38-1.96-.05-1.06-.06-1.38-.06-4.05s.01-2.99.06-4.05c.05-1.02.22 1.58.38-1.96.2-.48.44-.82.8-.8.36-.36.7-.6 1.18-.8.38-.16.94.33 1.96-.38C9.01 3.81 9.33 3.8 12 3.8zm0 3.35c-2.84 0-5.15 2.31-5.15 5.15s2.31 5.15 5.15 5.15 5.15-2.31 5.15-5.15S14.84 7.15 12 7.15zm0 8.5c-1.85 0-3.35-1.5-3.35-3.35s1.5-3.35 3.35-3.35 3.35 1.5 3.35 3.35-1.5 3.35-3.35 3.35zm4.35-8.6c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg></a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2025 Mongolian Grill. All Rights Reserved. Designed with Passion.</p>
-        </div>
-    </footer>
+    
+    <footer class="footer">...</footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script>
+        // MASTER JAVASCRIPT (shared across all pages)
         document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+
             // --- Custom Cursor Logic ---
             const cursorDot = document.querySelector('.cursor-dot');
             const cursorOutline = document.querySelector('.cursor-outline');
@@ -504,24 +203,26 @@
                 if (!document.body.classList.contains('cursor-visible')) {
                     document.body.classList.add('cursor-visible');
                 }
-                const posX = e.clientX;
-                const posY = e.clientY;
-                cursorDot.style.left = `${posX}px`;
-                cursorDot.style.top = `${posY}px`;
-                gsap.to(cursorOutline, { duration: 0.3, left: posX, top: posY });
+                gsap.to(cursorDot, { duration: 0.2, x: e.clientX, y: e.clientY });
+                gsap.to(cursorOutline, { duration: 0.4, x: e.clientX, y: e.clientY });
             });
             document.querySelectorAll('a, button, .ingredient-btn').forEach(el => {
                 el.addEventListener('mouseenter', () => cursorOutline.classList.add('cursor-interact'));
                 el.addEventListener('mouseleave', () => cursorOutline.classList.remove('cursor-interact'));
             });
-            document.body.addEventListener('mouseleave', () => {
-                document.body.classList.remove('cursor-visible');
-            });
+            document.body.addEventListener('mouseleave', () => { document.body.classList.remove('cursor-visible'); });
 
             // --- Preloader ---
             gsap.to('.preloader', { duration: 0.8, y: '-100%', ease: 'power4.inOut', delay: 1 });
-            
-            // --- Mobile Menu Logic ---
+
+            // --- Header Scroll Behavior ---
+            const header = document.getElementById('header');
+            ScrollTrigger.create({
+                start: 'top top', end: 99999,
+                onUpdate: self => { header.classList.toggle('scrolled', self.direction === 1 || self.scroll() > 50); }
+            });
+
+            // --- Mobile Menu ---
             const menuToggle = document.getElementById('menuToggle');
             const mobileNav = document.getElementById('mobileNav');
             menuToggle.addEventListener('click', () => {
@@ -535,88 +236,18 @@
                 }
             });
 
-            // --- Bowl Builder Logic ---
-            const userBowl = { base: null, proteins: new Set(), veggies: new Set() };
-            const bowlList = document.getElementById('bowl-list');
-            const accordion = document.getElementById('steps-accordion');
-
-            accordion.addEventListener('click', (e) => {
-                const header = e.target.closest('.step-header');
-                if (header) {
-                    const parentStep = header.parentElement;
-                    document.querySelectorAll('.step-accordion.active').forEach(openStep => {
-                        if (openStep !== parentStep) {
-                            openStep.classList.remove('active');
-                            gsap.to(openStep.querySelector('.step-body'), { maxHeight: 0, padding: '0 1rem 0', duration: 0.4, ease: 'power3.inOut' });
-                        }
-                    });
-                    parentStep.classList.toggle('active');
-                    const body = header.nextElementSibling;
-                    if (parentStep.classList.contains('active')) {
-                        gsap.to(body, { maxHeight: body.scrollHeight, padding: '0 1rem 2rem', duration: 0.5, ease: 'power3.out' });
-                        gsap.from(body.querySelectorAll('.ingredient-btn'), { y: 20, opacity: 0, stagger: 0.05, delay: 0.2, ease: 'power2.out' });
-                    } else {
-                        gsap.to(body, { maxHeight: 0, padding: '0 1rem 0', duration: 0.4, ease: 'power3.inOut' });
-                    }
-                }
-
-                const btn = e.target.closest('.ingredient-btn');
-                if (btn) {
-                    const category = btn.parentElement.dataset.category;
-                    const name = btn.dataset.name;
-                    if (category === 'base') {
-                        if (userBowl.base === name) { // Allow deselecting base
-                           btn.classList.remove('selected');
-                           userBowl.base = null;
-                        } else {
-                            const prevSelected = btn.parentElement.querySelector('.selected');
-                            if (prevSelected) prevSelected.classList.remove('selected');
-                            btn.classList.add('selected');
-                            userBowl.base = name;
-                        }
-                    } else {
-                        btn.classList.toggle('selected');
-                        if (userBowl[category].has(name)) {
-                            userBowl[category].delete(name);
-                        } else {
-                            userBowl[category].add(name);
-                        }
-                    }
-                    updateBowlVisualizer();
-                }
+            // --- HOME PAGE ANIMATIONS ---
+            gsap.from('.hero-content > *', { opacity: 0, y: 50, duration: 1.5, ease: 'power3.out', stagger: 0.2, delay: 1.2 });
+            gsap.from('.lead', { opacity: 0, y: 30, duration: 1, scrollTrigger: { trigger: '.intro-section', start: 'top 80%' } });
+            gsap.from('.step', { opacity: 0, y: 50, duration: 0.8, stagger: 0.2, scrollTrigger: { trigger: '.steps-container', start: 'top 75%' } });
+            gsap.utils.toArray('.promo-section').forEach(section => {
+                const image = section.querySelector('.promo-image');
+                const text = section.querySelector('.promo-text > *');
+                const tl = gsap.timeline({ scrollTrigger: { trigger: section, start: 'top 70%' } });
+                tl.from(image, { x: image.parentElement.matches(':nth-of-type(odd)') ? -100 : 100, opacity: 0, duration: 1, ease: 'power3.out' })
+                  .from(text, { x: image.parentElement.matches(':nth-of-type(odd)') ? 100 : -100, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.2 }, '-=0.8');
             });
-            
-            function updateBowlVisualizer() {
-                const items = [];
-                if (userBowl.base) items.push(userBowl.base);
-                items.push(...Array.from(userBowl.proteins).sort(), ...Array.from(userBowl.veggies).sort());
-                
-                const existingLis = Array.from(bowlList.children);
-                const newLis = [];
-
-                items.forEach(item => {
-                    let li = existingLis.find(el => el.dataset.name === item);
-                    if (!li) {
-                        li = document.createElement('li');
-                        li.textContent = item;
-                        li.dataset.name = item;
-                        bowlList.appendChild(li);
-                        gsap.from(li, { opacity: 0, x: -20, duration: 0.4, ease: 'power2.out' });
-                    }
-                    newLis.push(li);
-                });
-
-                existingLis.forEach(li => {
-                    if (!newLis.includes(li)) {
-                        gsap.to(li, { opacity: 0, x: 20, duration: 0.3, onComplete: () => li.remove() });
-                    }
-                });
-            }
-            
-            // Initialize first accordion
-            const firstAccordion = document.querySelector('.step-accordion');
-            firstAccordion.querySelector('.step-body').style.maxHeight = 'fit-content';
-            gsap.from(firstAccordion.querySelectorAll('.ingredient-btn'), { y: 20, opacity: 0, stagger: 0.05, delay: 1.2 });
+            gsap.from('.testimonial-card', { opacity: 0, scale: 0.9, duration: 1, scrollTrigger: { trigger: '.testimonials-section', start: 'top 75%' } });
         });
     </script>
 </body>
