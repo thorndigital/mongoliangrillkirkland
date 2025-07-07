@@ -3,69 +3,583 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Story - Mongolian Grill</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <title>Our Story - Mongolian Grill | Modern Dining Experience</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --primary-red: #800000;
-            --secondary-gold: #D4AF37;
-            --cream-bg: #F9F6F0;
-            --dark-charcoal: #333333;
+            --primary-red: #B71C1C;
+            --secondary-gold: #EAB308;
+            --cream-bg: #FDFBF7;
+            --dark-charcoal: #2D2D2D;
+            --light-gray-bg: #F7F7F7;
+            --white: #FFFFFF;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --shadow-color-hover: rgba(0, 0, 0, 0.12);
         }
-        body { font-family: 'Roboto', sans-serif; background-color: var(--cream-bg); color: var(--dark-charcoal); margin: 0; }
-        .header { background-color: white; padding: 1rem 2rem; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .header-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary-red); text-decoration: none; }
-        .nav-links { display: flex; gap: 2rem; }
-        .nav-link { color: var(--dark-charcoal); text-decoration: none; font-weight: 500; position: relative; }
-        .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; background: var(--secondary-gold); left: 50%; bottom: -5px; transform: translateX(-50%); transition: width 0.4s ease; }
-        .nav-link:hover, .nav-link.active { color: var(--secondary-gold); }
-        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        /* --- Global Styles & Resets --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--cream-bg);
+            color: var(--dark-charcoal);
+            overflow-x: hidden;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            color: var(--primary-red);
+            text-align: center;
+            margin-bottom: 4rem;
+            opacity: 0; /* For animation */
+        }
+        
+        .section-padding {
+            padding: 6rem 2rem;
+        }
+
+        /* --- Preloader --- */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--cream-bg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .loader-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary-red);
+        }
+
+        /* --- Header & Navigation --- */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1.5rem 2rem;
+            background-color: rgba(253, 251, 247, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(234, 179, 8, 0.2);
+            transition: all 0.3s ease-in-out;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-red);
+            text-decoration: none;
+            font-weight: 700;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        .nav-link {
+            color: var(--dark-charcoal);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.4s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: var(--secondary-gold);
+            left: 0;
+            bottom: -8px;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .nav-link:hover, .nav-link.active { color: var(--primary-red); }
+        .nav-link:hover::after, .nav-link.active::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        /* --- Hero / About Section --- */
+        .about-section {
+            padding-top: 4rem;
+            padding-bottom: 6rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 5rem;
+            align-items: center;
+            min-height: 90vh;
+        }
+        .about-image-wrapper { clip-path: inset(0 0 0 0); }
+        .about-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px var(--shadow-color);
+        }
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            transform: scale(1);
+            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .about-image:hover img { transform: scale(1.05); }
+        .about-text .title, .about-text .paragraph, .about-text .cta-button { visibility: hidden; }
+        .about-text h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 5.5vw, 4.2rem);
+            color: var(--primary-red);
+            margin-top: 0;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+            max-width: 60ch;
+        }
+        .cta-button {
+            display: inline-block;
+            margin-top: 1.5rem;
+            background-color: var(--primary-red);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 8px 15px var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            background-color: #A31919;
+            box-shadow: 0 12px 25px rgba(183, 28, 28, 0.3);
+        }
+        
+        /* --- How It Works Section --- */
+        .how-it-works-section {
+            background-color: var(--light-gray-bg);
+        }
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .step {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            border-bottom: 4px solid transparent;
+            transition: all 0.4s ease;
+            opacity: 0; /* For animation */
+        }
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px var(--shadow-color-hover);
+            border-bottom-color: var(--secondary-gold);
+        }
+        .step-icon {
+            height: 60px;
+            width: 60px;
+            margin-bottom: 1.5rem;
+            color: var(--primary-red);
+        }
+        .step h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--dark-charcoal);
+            margin-bottom: 1rem;
+        }
+        .step p {
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        /* --- Testimonials Section --- */
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .testimonial-card {
+            background-color: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+            display: flex;
+            flex-direction: column;
+            opacity: 0; /* For animation */
+        }
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-style: italic;
+            color: #555;
+            flex-grow: 1;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-left: 2.5rem;
+        }
+        .testimonial-text::before {
+            content: '“';
+            position: absolute;
+            left: 0;
+            top: -0.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--secondary-gold);
+            opacity: 0.5;
+        }
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary-red);
+            align-self: flex-end;
+        }
+        
+        /* --- Footer --- */
+        .footer {
+            background-color: var(--dark-charcoal);
+            color: var(--cream-bg);
+            text-align: center;
+            padding: 5rem 2rem 2rem;
+            margin-top: 6rem;
+        }
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 4rem;
+            text-align: left;
+        }
+        .footer-column h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--secondary-gold);
+            margin-bottom: 1.5rem;
+        }
+        .footer-column p, .footer-column a {
+            color: #ccc;
+            line-height: 1.8;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+        .footer-column a:hover {
+            color: var(--white);
+        }
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .social-icons a svg {
+            width: 24px;
+            height: 24px;
+            fill: #ccc;
+            transition: all 0.3s ease;
+        }
+        .social-icons a:hover svg {
+            fill: var(--secondary-gold);
+            transform: translateY(-3px);
+        }
+        .footer-bottom {
+            border-top: 1px solid #444;
+            padding-top: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            color: #aaa;
+        }
+        
+        /* --- Responsive Design --- */
         .menu-toggle { display: none; }
         .mobile-nav { display: none; }
-        .about-section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 4rem; align-items: center; }
-        .about-image { border-radius: 8px; overflow: hidden; box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
-        .about-image img { width: 100%; display: block; }
-        .about-text h1 { font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--primary-red); margin-top: 0; }
-        .about-text p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem; }
-        .footer { background-color: var(--dark-charcoal); color: var(--cream-bg); text-align: center; padding: 2.5rem; }
-        @media (max-width: 900px) { .about-section { grid-template-columns: 1fr; } }
-        @media (max-width: 768px) { .nav-links { display: none; } .menu-toggle { display: block; font-size: 1.8rem; color: var(--dark-charcoal); background: none; border: none; cursor: pointer; } .mobile-nav.active { display: flex; flex-direction: column; background-color: white; position: absolute; top: 100%; left: 0; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.1); } .mobile-nav .nav-link { padding: 1rem; border-top: 1px solid #eee; } .about-text h1 { font-size: 2.5rem; }}
+
+        @media (max-width: 992px) {
+            .about-section {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+                text-align: center;
+            }
+            .about-image { margin: 0 auto; max-width: 500px; }
+            .about-text p { margin-left: auto; margin-right: auto; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .menu-toggle {
+                display: block; font-size: 1.8rem; color: var(--dark-charcoal);
+                background: none; border: none; cursor: pointer; z-index: 1001;
+            }
+            .mobile-nav {
+                display: flex; flex-direction: column; justify-content: center; align-items: center;
+                gap: 2rem; background-color: var(--cream-bg); position: fixed;
+                top: 0; left: 0; width: 100%; height: 100vh;
+                transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.86, 0, 0.07, 1);
+            }
+            .mobile-nav.active { transform: translateX(0); }
+            .mobile-nav .nav-link { font-size: 2rem; opacity: 0; }
+            .footer-container { text-align: center; }
+            .footer-column .social-icons { justify-content: center; }
+        }
     </style>
 </head>
 <body>
+
+    <div class="preloader">
+        <div class="loader-logo">MG</div>
+    </div>
+
     <header class="header">
         <div class="header-container">
-            <a href="index.html" class="logo">Mongolian Grill</a>
+            <a href="#home" class="logo">Mongolian Grill</a>
             <nav class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="about.html" class="nav-link active">About Us</a>
-                <a href="menu.html" class="nav-link">Menu</a>
-                <a href="contact.html" class="nav-link">Contact Us</a>
+                <a href="/index.html" class="nav-link active">Home</a>
+                <a href="/menu.html" class="nav-link">The Menu</a>
+                <a href="/about.html" class="nav-link">About Us</a>
+                <a href="/contact.html" class="nav-link">Contact</a>
             </nav>
-            <button class="menu-toggle" id="menuToggle">&#9776;</button>
+            <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu">&#9776;</button>
         </div>
-        <nav class="mobile-nav" id="mobileNav"><a href="index.html" class="nav-link">Home</a><a href="about.html" class="nav-link active">About Us</a><a href="menu.html" class="nav-link">Menu</a><a href="contact.html" class="nav-link">Contact Us</a></nav>
+        <nav class="mobile-nav" id="mobileNav">
+            <a href="/index.html" class="nav-link active">Home</a>
+            <a href="/menu.html" class="nav-link">The Menu</a>
+            <a href="/about.html" class="nav-link">About Us</a>
+            <a href="/contact.html" class="nav-link">Contact</a>
+        </nav>
     </header>
 
     <main>
-        <section class="about-section">
-            <div class="about-image"><img src="/assets/mongolian.png" alt="The Grill"></div>
+        <section id="home" class="about-section section-padding">
+            <div class="about-image-wrapper">
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1559779073-552a9678a15e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80" alt="A vibrant Mongolian grill bowl being prepared">
+                </div>
+            </div>
             <div class="about-text">
-                <h1>Our Story</h1>
-                <p>Founded in 2005, Mongolian Grill began with a simple idea: that a meal could be more than just food—it could be an experience. We wanted to create a place where every guest could become a chef, crafting a meal that was a perfect reflection of their own taste.</p>
-                <p>Inspired by the communal tradition of Mongolian barbecue, we've built our restaurant around an open grill and a vibrant selection of the freshest ingredients available. From sourcing high-quality meats and vegetables to mixing our own signature sauces, every detail is chosen with care.</p>
-                <p>We are a gathering place for friends and family, a spot for a quick and healthy lunch, and a destination for a delicious dinner. Thank you for being a part of our story!</p>
+                <h1 class="title">A Meal Crafted by You.</h1>
+                <p class="paragraph">Founded in 2005, Mongolian Grill began with a simple idea: that a meal could be an experience. We created a place where every guest becomes a chef, crafting a meal that's a perfect reflection of their taste.</p>
+                <p class="paragraph">Inspired by the communal tradition of Mongolian barbecue, our restaurant is built around an open grill and a vibrant selection of the freshest ingredients available. </p>
+                <a href="#how-it-works" class="cta-button">Create Your Masterpiece</a>
             </div>
         </section>
+
+        <section id="how-it-works" class="how-it-works-section section-padding">
+            <h2 class="section-title">A Simple, Flavorful Journey</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21.928 12.645L20.14 3.528A4.002 4.002 0 0 0 16.215 1h-8.43a4.002 4.002 0 0 0-3.925 2.528L2.072 12.645A4.002 4.002 0 0 0 3.05 18.2L5.8 20.95a1 1 0 0 0 .7.3h11a1 1 0 0 0 .7-.3l2.75-2.75a4.002 4.002 0 0 0 .978-5.555zM17 19.55H7L4.45 17.001a2 2 0 0 1-.488-2.777L5.75 6h12.5l1.788 8.224a2 2 0 0 1-.488 2.777L17 19.55zM9 11h6V9H9v2zm-2 4h10v-2H7v2z"/></svg>
+                    <h3>1. Choose Your Ingredients</h3>
+                    <p>Fill your bowl with your favorite selection of fresh-cut vegetables, high-quality proteins, and delicious noodles.</p>
+                </div>
+                <div class="step">
+                     <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19.673 8.382a3.001 3.001 0 0 0-3.187-2.155A3.003 3.003 0 0 0 13.5 3.38V2a1 1 0 0 0-2 0v1.38a3.003 3.003 0 0 0-2.986 2.847 3.001 3.001 0 0 0-3.187 2.155A4.002 4.002 0 0 0 1 12.23v2.24a1 1 0 0 0 .5 1.5l1.071.535a3.988 3.988 0 0 0 2.929 1.295H18.5a3.988 3.988 0 0 0 2.929-1.295l1.071-.535a1 1 0 0 0 .5-1.5v-2.24a4.002 4.002 0 0 0-3.327-3.848zM18.5 16H5.5a2 2 0 0 1-1.458-.642L3 14.47v-2.24a2 2 0 0 1 1.664-1.924A5.004 5.004 0 0 1 8.5 5.38a5.004 5.004 0 0 1 7 0 5.004 5.004 0 0 1 3.836 4.926A2 2 0 0 1 21 12.23v2.24l-1.042.888A2 2 0 0 1 18.5 16z"/></svg>
+                    <h3>2. Create Your Sauce</h3>
+                    <p>Mix and match from our array of signature sauces and oils. From sweet teriyaki to fiery chili, craft your unique flavor profile.</p>
+                </div>
+                <div class="step">
+                    <svg class="step-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14.248 3.333a1 1 0 0 0-1.132-.904A13.04 13.04 0 0 0 2.012 11.5a1 1 0 1 0 1.99.2A11.04 11.04 0 0 1 13.116 3.09a1 1 0 0 0 1.132-.902L14.248 3.333zM9.485 5.5a1 1 0 0 0-1.341.643A8.995 8.995 0 0 0 4.02 11.6a1 1 0 1 0 1.99.2A6.996 6.996 0 0 1 9.852 7.15a1 1 0 0 0-.367-1.65zm12.443 6.002a1 1 0 0 0-1.99-.2 9.04 9.04 0 0 1-12.01 6.843 1 1 0 0 0-.884 1.83A11.04 11.04 0 0 0 22.01 11.7a1 1 0 0 0-.082-.198zM20.5 21a1 1 0 0 1-1-1v-2.07c0-2.06-1.52-4.14-3.5-5.33a1 1 0 1 0-1 1.72A3.593 3.593 0 0 1 17.5 18v2a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-4.07c0-2.06-1.52-4.14-3.5-5.33a1 1 0 1 0-1 1.72A3.593 3.593 0 0 1 12.5 16v4a1 1 0 0 1-1 1H5.75a1 1 0 0 1-.86-.5l-.5-1a1 1 0 0 1 .11-1.1l3-3a1 1 0 0 1 1.4 0l1.29 1.29a1 1 0 0 0 1.4 0l1.3-1.3a1 1 0 0 1 1.4 0l3 3a1 1 0 0 1 .1 1.1l-.5 1a1 1 0 0 1-.85.5H11.5a1 1 0 0 0 0 2h9z"/></svg>
+                    <h3>3. Watch it Sizzle</h3>
+                    <p>Hand your creation to our grill masters. Watch as they cook your meal to perfection on our large, searing-hot grill.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials-section section-padding">
+            <h2 class="section-title">What Our Guests Say</h2>
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">An absolute must-visit! The freedom to build your own bowl is fantastic, and the ingredients are always incredibly fresh. My family loves coming here.</p>
+                    <p class="testimonial-author">- Sarah L.</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">The best Mongolian grill in town, hands down. The sauce selection is incredible, and the staff is always so friendly and helpful. A perfect spot for a quick, healthy, and delicious lunch.</p>
+                    <p class="testimonial-author">- Mark T.</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">I've been a regular for years. The quality has never wavered. It's not just a meal; it's a fun, interactive experience every single time. Highly recommend the 'Dragon's Breath' chili oil!</p>
+                    <p class="testimonial-author">- Jennifer Chen</p>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer class="footer"><p>&copy; 2025 Mongolian Grill. All rights reserved.</p></footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <footer id="contact" class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>About Us</h4>
+                <p>The original create-your-own stir-fry experience, serving up fresh ingredients and bold flavors since 2005.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <a href="/index.html">Home</a>
+                <a href="/about.html">The Experience</a>
+                <a href="/menu.html">Menu</a>
+                <a href="/contact.html">Contact</a>
+            </div>
+            <div class="footer-column">
+                <h4>Contact Us</h4>
+                <p>123 Grill Master Ave<br>Flavor Town, USA 98072</p>
+                <a href="tel:555-123-4567">(555) 123-4567</a>
+                <a href="mailto:contact@mongoliangrill.com">contact@mongoliangrill.com</a>
+            </div>
+            <div class="footer-column">
+                <h4>Connect With Us</h4>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M12 2.04C6.5 2.04 2 6.53 2 12.06c0 5.07 3.67 9.27 8.44 9.94v-7.02h-2.52v-2.9h2.52V9.82c0-2.48 1.49-3.87 3.75-3.87 1.08 0 2.02.08 2.29.12v2.6h-1.55c-1.21 0-1.45.58-1.45 1.42v1.86h2.92l-.38 2.9h-2.54v7.02C18.33 21.33 22 17.13 22 12.06c0-5.53-4.5-10.02-10-10.02z"/></svg>
+                    </a>
+                    <a href="#" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><path d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.23-2.43.48-.65.25-1.23.59-1.79 1.15-.56.56-.9 1.14-1.15 1.79-.25.64-.43 1.37-.48 2.43C2.01 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.23 1.79.48 2.43.25.65.59 1.23 1.15 1.79.56.56 1.14.9 1.79 1.15.64.25 1.37.43 2.43.48 1.06.05 1.4.06 4.12.06s3.06-.01 4.12-.06c1.06-.05 1.79-.23 2.43-.48.65-.25 1.23-.59 1.79-1.15.56-.56.9-1.14 1.15-1.79.25-.64.43-1.37.48-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.23-1.79-.48-2.43-.25-.65-.59-1.23-1.15-1.79-.56-.56-1.14-.9-1.79-1.15-.64-.25-1.37-.43-2.43-.48C15.06 2.01 14.72 2 12 2zm0 1.8c2.67 0 2.99.01 4.05.06 1.02.05 1.58.22 1.96.38.48.2.82.44 1.18.8.36.36.6.7.8 1.18.16.38.33.94.38 1.96.05 1.06.06 1.38.06 4.05s-.01 2.99-.06 4.05c-.05 1.02-.22 1.58-.38 1.96-.2.48-.44.82-.8 1.18-.36.36-.7.6-1.18.8-.38.16-.94.33-1.96.38-1.06.05-1.38.06-4.05.06s-2.99-.01-4.05-.06c-1.02-.05-1.58-.22-1.96-.38-.48-.2-.82-.44-.8-1.18-.36-.36-.6-.7-.8-1.18-.16-.38-.33-.94-.38-1.96-.05-1.06-.06-1.38-.06-4.05s.01-2.99.06-4.05c.05-1.02.22-1.58.38-1.96.2-.48.44-.82.8-.8.36-.36.7-.6 1.18-.8.38-.16.94-.33 1.96-.38C9.01 3.81 9.33 3.8 12 3.8zm0 3.35c-2.84 0-5.15 2.31-5.15 5.15s2.31 5.15 5.15 5.15 5.15-2.31 5.15-5.15S14.84 7.15 12 7.15zm0 8.5c-1.85 0-3.35-1.5-3.35-3.35s1.5-3.35 3.35-3.35 3.35 1.5 3.35 3.35-1.5 3.35-3.35 3.35zm4.35-8.6c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Mongolian Grill. All Rights Reserved. Designed with Passion.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script>
-        document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('mobileNav').classList.toggle('active'));
-        gsap.from('.about-image', { duration: 1, x: -50, opacity: 0, ease: 'power3.out' });
-        gsap.from('.about-text > *', { duration: 1, x: 50, opacity: 0, stagger: 0.2, ease: 'power3.out' });
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            // --- Mobile Menu Logic ---
+            const menuToggle = document.getElementById('menuToggle');
+            const mobileNav = document.getElementById('mobileNav');
+            const mobileNavLinks = mobileNav.querySelectorAll('.nav-link');
+            const toggleMenu = () => {
+                const isActive = mobileNav.classList.toggle('active');
+                menuToggle.innerHTML = isActive ? '&times;' : '&#9776;';
+                gsap.to('body', { overflow: isActive ? 'hidden' : 'auto' });
+
+                if (isActive) {
+                    gsap.to(mobileNavLinks, { opacity: 1, y: 0, stagger: 0.1, duration: 0.8, ease: 'power4.out', delay: 0.3 });
+                } else {
+                    gsap.to(mobileNavLinks, { opacity: 0, y: 20, duration: 0.2, ease: 'power2.in' });
+                }
+            };
+            menuToggle.addEventListener('click', toggleMenu);
+            mobileNavLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+            // --- Preloader Animation ---
+            const preloader = document.querySelector('.preloader');
+            const loaderLogo = document.querySelector('.loader-logo');
+            const tlLoader = gsap.timeline();
+            tlLoader.from(loaderLogo, { duration: 0.8, y: 50, opacity: 0, ease: 'power3.out' })
+                    .to(loaderLogo, { duration: 0.4, y: -50, opacity: 0, ease: 'power3.in', delay: 0.5 })
+                    .to(preloader, { duration: 0.8, y: '-100%', ease: 'power4.inOut' });
+            
+            // --- Master Animation Timeline ---
+            const masterTimeline = gsap.timeline({ delay: tlLoader.duration() - 0.5 });
+            
+            // --- Section Content Animations on Scroll ---
+            const animateIn = (element, { from, to }) => {
+                gsap.fromTo(element, from, {
+                    ...to,
+                    scrollTrigger: {
+                        trigger: element,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                });
+            };
+            
+            // --- Hero Section Animation ---
+            const heroTl = gsap.timeline({
+                scrollTrigger: { trigger: ".about-section", start: "top 70%" }
+            });
+            heroTl.from('.about-image-wrapper', { clipPath: 'inset(0 100% 0 0)', duration: 1.2, ease: 'power4.out' })
+                  .from('.about-image img', { scale: 1.3, duration: 1.2, ease: 'power4.out' }, '<')
+                  .from('.about-text .title', { x: 50, autoAlpha: 1, duration: 0.8, ease: 'power3.out' }, '-=0.8')
+                  .from('.about-text .paragraph', { x: 50, autoAlpha: 1, duration: 0.8, stagger: 0.2, ease: 'power3.out' }, '-=0.6')
+                  .from('.about-text .cta-button', { y: 50, autoAlpha: 1, duration: 1, ease: 'elastic.out(1, 0.5)' }, '-=0.4');
+
+
+            // --- Generic Section Title Animation ---
+            gsap.utils.toArray('.section-title').forEach(title => {
+                animateIn(title, { from: { y: 50, opacity: 0 }, to: { y: 0, opacity: 1, duration: 1, ease: 'power3.out' } });
+            });
+            
+            // --- "How It Works" Staggered Animation ---
+             gsap.from(".step", {
+                scrollTrigger: {
+                    trigger: ".steps-container",
+                    start: "top 80%"
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                stagger: 0.2
+            });
+
+            // --- Testimonials Staggered Animation ---
+             gsap.from(".testimonial-card", {
+                scrollTrigger: {
+                    trigger: ".testimonials-container",
+                    start: "top 80%"
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                stagger: 0.2
+            });
+
+             // --- Footer Animation ---
+             gsap.from(".footer-column", {
+                scrollTrigger: {
+                    trigger: ".footer-container",
+                    start: "top 90%"
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                stagger: 0.15
+            });
+        });
     </script>
 </body>
 </html>
